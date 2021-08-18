@@ -1,16 +1,35 @@
+import { NavigationContainer } from "@react-navigation/native"
+import { createDrawerNavigator } from "@react-navigation/drawer"
 import React from "react"
-import { View } from "react-native"
-import { NativeRouter, Route } from "react-router-native"
 import Home from "../components/Home"
+import { Text } from "react-native"
+import { Ionicons } from "@expo/vector-icons"
 import LogIn from "../components/LogIn"
-import { HOME_ROUTE, LOGIN_ROUTE } from "./routeTypes"
+
+const Drawer = createDrawerNavigator()
 
 function Navigation() {
 	return (
-		<NativeRouter>
-			<Route path={HOME_ROUTE} exact component={Home} />
-			<Route path={LOGIN_ROUTE} component={LogIn} />
-		</NativeRouter>
+		<NavigationContainer>
+			<Drawer.Navigator>
+				<Drawer.Screen
+					name="home"
+					options={{
+						drawerIcon: ({ size }) => <Ionicons name="md-home" size={size} color="#000"></Ionicons>,
+						title: "Home"
+					}}
+					component={Home}
+				/>
+				<Drawer.Screen
+					name="login"
+					options={{
+						drawerIcon: ({ size }) => <Ionicons name="log-in" size={size} color="#000"></Ionicons>,
+						title: "LogIn"
+					}}
+					component={LogIn}
+				/>
+			</Drawer.Navigator>
+		</NavigationContainer>
 	)
 }
 
