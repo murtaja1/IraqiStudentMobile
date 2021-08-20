@@ -16,41 +16,29 @@ function Navigation() {
 					drawerPosition: "right",
 
 					header: (props) => (
-						<View
-							style={{
-								height: 40,
-								backgroundColor: "#297F87"
-							}}>
+						<View style={styles.navbar}>
 							<View>
-								<View
-									style={{
-										position: "relative",
-										left: "44%",
-										top: 5
-									}}>
-									<Text style={{ color: "#fff", fontSize: 20 }}>{props.route.name}</Text>
-								</View>
-								<View style={{ position: "absolute", right: 10, top: 5 }}>
-									<Ionicons
-										onPress={() => props.navigation.openDrawer()}
-										name="menu"
-										size={30}
-										color="#fff"></Ionicons>
-								</View>
+								<Text>{"         "}</Text>
 							</View>
+							<Text style={styles.headerName}>{props.options.title}</Text>
+							<Ionicons
+								style={styles.headerIcon}
+								onPress={() => props.navigation.openDrawer()}
+								name="menu"
+								size={30}
+								color="#fff"></Ionicons>
 						</View>
-					),
-					style: { direction: "rtl", position: "absolute", right: 0 }
+					)
 				}}>
 				<Drawer.Screen
-					name="jjjj"
+					name="home"
 					options={{
-						drawerLabel: ({ focused }) => (
+						drawerLabel: () => (
 							<View>
-								<Text style={{ fontSize: 20, position: "relative", right: "25%" }}>الطالب</Text>
+								<Text style={styles.profile}>الطالب</Text>
 							</View>
 						),
-						title: "الرئسية"
+						title: "الطالب"
 					}}
 					component={Home}
 				/>
@@ -59,7 +47,7 @@ function Navigation() {
 					options={{
 						drawerIcon: ({ size }) => (
 							<Ionicons
-								style={{ position: "absolute", right: 0 }}
+								style={styles.sideBarIcon}
 								name="md-home"
 								size={size}
 								color="#000"></Ionicons>
@@ -73,7 +61,7 @@ function Navigation() {
 					options={{
 						drawerIcon: ({ size }) => (
 							<Ionicons
-								style={{ position: "absolute", right: 0 }}
+								style={styles.sideBarIcon}
 								name="log-in"
 								size={size}
 								color="#000"></Ionicons>
@@ -88,3 +76,20 @@ function Navigation() {
 }
 
 export default Navigation
+
+const styles = StyleSheet.create({
+	navbar: {
+		backgroundColor: "#297F87",
+		height: 36,
+		flexDirection: "row",
+		alignItems: "center",
+		justifyContent: "space-between"
+	},
+	headerName: {
+		color: "#fff",
+		fontSize: 20
+	},
+	headerIcon: { paddingRight: 10 },
+	profile: { fontSize: 20, position: "relative", right: "25%" },
+	sideBarIcon: { position: "absolute", right: 0 }
+})
