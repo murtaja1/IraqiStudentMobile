@@ -4,7 +4,7 @@ import { View, StyleSheet, Text } from "react-native"
 function LogIn() {
 	return (
 		<View>
-			<Text>login</Text>
+			<Text>تسجيل الدخول</Text>
 		</View>
 	)
 }
