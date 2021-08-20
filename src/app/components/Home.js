@@ -4,7 +4,7 @@ import { Text, View } from "react-native"
 function Home() {
 	return (
 		<View>
-			<Text>Hello Iraqi Student!</Text>
+			<Text>مرحبا ايها الطالب العراقي!</Text>
 		</View>
 	)
 }
