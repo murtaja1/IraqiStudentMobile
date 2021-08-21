@@ -1,5 +1,5 @@
 import { Formik } from "formik"
-import React, { useEffect } from "react"
+import React from "react"
 import { View, StyleSheet, Text, TextInput, Button } from "react-native"
 import * as yup from "yup"
 import { useSelector, useDispatch } from "react-redux"
@@ -12,23 +12,20 @@ const loginSchema = yup.object({
 
 function LogIn() {
 	const dispatch = useDispatch()
+	const state = useSelector((state) => state.username)
 
-	const state = useSelector((state) => state)
-	useEffect(() => {
-		console.log(state.username + "dddkkkkd")
-	}, [state])
 	return (
 		<View style={styles.container}>
-			{state.username === false && (
-				<Text style={styles.error}>اسم المستخدم او رمز المرور غير صحيح! </Text>
-			)}
+			{state === null && <Text style={styles.error}>اسم المستخدم او رمز المرور غير صحيح! </Text>}
 			<Formik
 				validationSchema={loginSchema}
 				initialValues={{
 					username: "",
 					password: ""
 				}}
-				onSubmit={(values) => dispatch(FetchToken(values))}>
+				onSubmit={(values) => {
+					dispatch(FetchToken(values))
+				}}>
 				{(props) => (
 					<View>
 						<Text>ادخل اسم المستخدم: </Text>
