@@ -5,12 +5,13 @@ import Home from "../components/Home"
 import { Text, View, StyleSheet } from "react-native"
 import { Ionicons } from "@expo/vector-icons"
 import LogIn from "../components/LogIn"
+import { navigationRef } from "./RootNavigation"
 
 const Drawer = createDrawerNavigator()
 
 function Navigation() {
 	return (
-		<NavigationContainer>
+		<NavigationContainer ref={navigationRef}>
 			<Drawer.Navigator
 				screenOptions={{
 					drawerPosition: "right",
