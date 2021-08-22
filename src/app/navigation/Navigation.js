@@ -6,6 +6,7 @@ import { Text, View, StyleSheet } from "react-native"
 import { Ionicons } from "@expo/vector-icons"
 import LogIn from "../components/LogIn"
 import { navigationRef } from "./RootNavigation"
+import Register from "../components/Register"
 
 const Drawer = createDrawerNavigator()
 
@@ -70,6 +71,20 @@ function Navigation() {
 						title: "تسجيل الدخول"
 					}}
 					component={LogIn}
+				/>
+				<Drawer.Screen
+					name="register"
+					options={{
+						drawerIcon: ({ size }) => (
+							<Ionicons
+								style={styles.sideBarIcon}
+								name="clipboard-sharp"
+								size={size}
+								color="#000"></Ionicons>
+						),
+						title: "انشاء حساب"
+					}}
+					component={Register}
 				/>
 			</Drawer.Navigator>
 		</NavigationContainer>
