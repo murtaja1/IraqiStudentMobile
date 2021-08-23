@@ -1,11 +1,12 @@
 import { Formik } from "formik"
 import * as yup from "yup"
-import React from "react"
+import React, { useState } from "react"
 import { Text, TextInput, View, StyleSheet, Button, ScrollView } from "react-native"
 import axios from "axios"
 import Const from "../Const"
 
 function Register({ navigation }) {
+	const [error, setError] = useState({ email: false, username: false })
 	const registerSchema = yup.object({
 		username: yup
 			.string()
@@ -37,10 +38,19 @@ function Register({ navigation }) {
 			}
 		})
 			.then((res) => {
+				console.log(res)
 				resetForm()
 				navigation.navigate("login")
 			})
-			.catch((err) => console.log(err))
+			.catch((err) => {
+				const errMessage = err.response.data
+				// to avoid setting useState for error
+				const dubleErr = { email: false, username: false }
+				console.log(errMessage)
+				if (errMessage.email) dubleErr.email = true
+				if (errMessage.username) dubleErr.username = true
+				setError(dubleErr)
+			})
 	}
 
 	return (
@@ -61,6 +71,8 @@ function Register({ navigation }) {
 							value={props.values.username}
 						/>
 						{props.touched.username && <Text style={styles.error}>{props.errors.username}</Text>}
+						{/* server error */}
+						{error.username && <Text style={styles.error}>تم أخذ هذا الأسم, ادخل اسم اخر. </Text>}
 
 						<Text>ادخل عنوان البريد: </Text>
 						<TextInput
@@ -70,6 +82,7 @@ function Register({ navigation }) {
 							value={props.values.email}
 						/>
 						{props.touched.email && <Text style={styles.error}>{props.errors.email}</Text>}
+						{error.email && <Text style={styles.error}>تم أخذ هذا الايميل, ادخل ايميل اخر.</Text>}
 
 						<Text>ادخل رمز المرور: </Text>
 						<TextInput
