@@ -13,11 +13,14 @@ function Register({ navigation }) {
 			.required("يجب ان تكتب اسم المستخدم")
 			.min(6, "يجب ان يكون اسم المستخدم اكثر من 6 احرف")
 			.max(64, "يجب ان يكون اسم المستخدم اقل من 64 احرف"),
-		email: yup.string().email("يجب أن يكون عنوان البريد صالح للاستخدام!"),
+		email: yup
+			.string()
+			.required("يجب أن تكتب الايميل الخاص بك!!")
+			.email("يجب أن يكون الايميل صالح للاستخدام!"),
 		password: yup
 			.string()
 			.required("يجب ان تكتب رمز المرور")
-			.min(8, "يجب ان يكون رمز المرور اكثر من 5 احرف")
+			.min(6, "يجب ان يكون رمز المرور اكثر من 6 احرف")
 			.max(100, "يجب ان يكون رمز المرور اقل من 100 احرف"),
 		password2: yup.string().oneOf([yup.ref("password"), null], "رمز المرور غير متطابق!")
 	})
@@ -61,27 +64,30 @@ function Register({ navigation }) {
 				onSubmit={(values, { resetForm }) => {
 					handleRegister(values, resetForm)
 				}}>
-				{(props) => (
+				{({ handleChange, errors, values, handleSubmit, touched }) => (
 					<View>
 						<Text>ادخل اسم المستخدم: </Text>
 						<TextInput
 							style={styles.input}
 							placeholder="اسم المستخدم"
-							onChangeText={props.handleChange("username")}
-							value={props.values.username}
+							onChangeText={handleChange("username")}
+							value={values.username}
 						/>
-						{props.touched.username && <Text style={styles.error}>{props.errors.username}</Text>}
+						{/* show only when the submit is hit and there is error to avoid the space when hit submit under the fields */}
+						{errors.username && touched.username && (
+							<Text style={styles.error}>{errors.username}</Text>
+						)}
 						{/* server error */}
 						{error.username && <Text style={styles.error}>تم أخذ هذا الأسم, ادخل اسم اخر. </Text>}
 
-						<Text>ادخل عنوان البريد: </Text>
+						<Text>ادخل الايميل: </Text>
 						<TextInput
 							style={styles.input}
-							placeholder="عنوان البريد"
-							onChangeText={props.handleChange("email")}
-							value={props.values.email}
+							placeholder="الايميل"
+							onChangeText={handleChange("email")}
+							value={values.email}
 						/>
-						{props.touched.email && <Text style={styles.error}>{props.errors.email}</Text>}
+						{errors.email && touched.email && <Text style={styles.error}>{errors.email}</Text>}
 						{error.email && <Text style={styles.error}>تم أخذ هذا الايميل, ادخل ايميل اخر.</Text>}
 
 						<Text>ادخل رمز المرور: </Text>
@@ -89,22 +95,26 @@ function Register({ navigation }) {
 							secureTextEntry={true}
 							style={styles.input}
 							placeholder="رمز المرور"
-							onChangeText={props.handleChange("password")}
-							value={props.values.password}
+							onChangeText={handleChange("password")}
+							value={values.password}
 						/>
-						{props.touched.password && <Text style={styles.error}>{props.errors.password}</Text>}
+						{errors.password && touched.password && (
+							<Text style={styles.error}>{errors.password}</Text>
+						)}
 
 						<Text>تأكيد رمز المرور: </Text>
 						<TextInput
 							secureTextEntry={true}
 							style={styles.input}
 							placeholder="تأكيد رمز المرور"
-							onChangeText={props.handleChange("password2")}
-							value={props.values.password2}
+							onChangeText={handleChange("password2")}
+							value={values.password2}
 						/>
-						{props.touched.password2 && <Text style={styles.error}>{props.errors.password2}</Text>}
+						{errors.password2 && touched.password2 && (
+							<Text style={styles.error}>{errors.password2}</Text>
+						)}
 
-						<Button onPress={props.handleSubmit} title="انشاء حساب" />
+						<Button onPress={handleSubmit} title="انشاء حساب" />
 					</View>
 				)}
 			</Formik>
