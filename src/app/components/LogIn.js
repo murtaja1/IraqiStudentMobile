@@ -26,27 +26,31 @@ function LogIn() {
 				onSubmit={(values) => {
 					dispatch(FetchToken(values))
 				}}>
-				{(props) => (
+				{({ handleChange, errors, values, handleSubmit, touched }) => (
 					<View>
 						<Text>ادخل اسم المستخدم: </Text>
 						<TextInput
 							style={styles.input}
 							placeholder="الاسم"
-							onChangeText={props.handleChange("username")}
-							value={props.values.username}
+							onChangeText={handleChange("username")}
+							value={values.username}
 						/>
-						{props.touched.username && <Text style={styles.error}>{props.errors.username}</Text>}
+						{touched.username && errors.username && (
+							<Text style={styles.error}>{errors.username}</Text>
+						)}
 						<Text>ادخل رمز المرور: </Text>
 						<TextInput
 							secureTextEntry={true}
 							style={styles.input}
 							placeholder="رمز المرور"
-							onChangeText={props.handleChange("password")}
-							value={props.values.password}
+							onChangeText={handleChange("password")}
+							value={values.password}
 						/>
-						{props.touched.username && <Text style={styles.error}>{props.errors.password}</Text>}
+						{touched.password && errors.password && (
+							<Text style={styles.error}>{errors.password}</Text>
+						)}
 
-						<Button onPress={props.handleSubmit} title="تسجيل الدخول" />
+						<Button onPress={handleSubmit} title="تسجيل الدخول" />
 					</View>
 				)}
 			</Formik>
