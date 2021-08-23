@@ -5,9 +5,17 @@ import { Text, TextInput, View, StyleSheet, Button, ScrollView } from "react-nat
 
 function Register() {
 	const registerSchema = yup.object({
-		username: yup.string().required("يجب ان تكتب اسم المستخدم"),
+		username: yup
+			.string()
+			.required("يجب ان تكتب اسم المستخدم")
+			.min(6, "يجب ان يكون اسم المستخدم اكثر من 6 احرف")
+			.max(64, "يجب ان يكون اسم المستخدم اقل من 64 احرف"),
 		email: yup.string().email("يجب أن يكون عنوان البريد صالح للاستخدام!"),
-		password: yup.string().required("يجب ان تكتب رمز المرور"),
+		password: yup
+			.string()
+			.required("يجب ان تكتب رمز المرور")
+			.min(8, "يجب ان يكون رمز المرور اكثر من 5 احرف")
+			.max(100, "يجب ان يكون رمز المرور اقل من 100 احرف"),
 		password2: yup.string().oneOf([yup.ref("password"), null], "رمز المرور غير متطابق!")
 	})
 	return (
@@ -18,6 +26,7 @@ function Register() {
 				onSubmit={(values) => console.log(values)}>
 				{(props) => (
 					<View>
+						<Text>ادخل اسم المستخدم: </Text>
 						<TextInput
 							style={styles.input}
 							placeholder="اسم المستخدم"
@@ -25,6 +34,7 @@ function Register() {
 						/>
 						{props.touched.username && <Text style={styles.error}>{props.errors.username}</Text>}
 
+						<Text>ادخل عنوان البريد: </Text>
 						<TextInput
 							style={styles.input}
 							placeholder="عنوان البريد"
@@ -32,14 +42,18 @@ function Register() {
 						/>
 						{props.touched.email && <Text style={styles.error}>{props.errors.email}</Text>}
 
+						<Text>ادخل رمز المرور: </Text>
 						<TextInput
+							secureTextEntry={true}
 							style={styles.input}
 							placeholder="رمز المرور"
 							onChangeText={props.handleChange("password")}
 						/>
 						{props.touched.password && <Text style={styles.error}>{props.errors.password}</Text>}
 
+						<Text>تأكيد رمز المرور: </Text>
 						<TextInput
+							secureTextEntry={true}
 							style={styles.input}
 							placeholder="تأكيد رمز المرور"
 							onChangeText={props.handleChange("password2")}
