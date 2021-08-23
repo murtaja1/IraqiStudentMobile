@@ -2,8 +2,10 @@ import { Formik } from "formik"
 import * as yup from "yup"
 import React from "react"
 import { Text, TextInput, View, StyleSheet, Button, ScrollView } from "react-native"
+import axios from "axios"
+import Const from "../Const"
 
-function Register() {
+function Register({ navigation }) {
 	const registerSchema = yup.object({
 		username: yup
 			.string()
@@ -18,12 +20,37 @@ function Register() {
 			.max(100, "يجب ان يكون رمز المرور اقل من 100 احرف"),
 		password2: yup.string().oneOf([yup.ref("password"), null], "رمز المرور غير متطابق!")
 	})
+
+	const handleRegister = (values, resetForm) => {
+		axios({
+			url: Const.mainUrl + "register",
+			method: "post",
+			data: {
+				username: values.username,
+				email: values.email,
+				password: values.password,
+				password2: values.password2
+			},
+			headers: {
+				Accept: "application/json",
+				"Content-Type": "application/json"
+			}
+		})
+			.then((res) => {
+				resetForm()
+				navigation.navigate("login")
+			})
+			.catch((err) => console.log(err))
+	}
+
 	return (
 		<ScrollView style={styles.container}>
 			<Formik
 				validationSchema={registerSchema}
 				initialValues={{ username: "", email: "", password: "", password2: "" }}
-				onSubmit={(values) => console.log(values)}>
+				onSubmit={(values, { resetForm }) => {
+					handleRegister(values, resetForm)
+				}}>
 				{(props) => (
 					<View>
 						<Text>ادخل اسم المستخدم: </Text>
@@ -31,6 +58,7 @@ function Register() {
 							style={styles.input}
 							placeholder="اسم المستخدم"
 							onChangeText={props.handleChange("username")}
+							value={props.values.username}
 						/>
 						{props.touched.username && <Text style={styles.error}>{props.errors.username}</Text>}
 
@@ -39,6 +67,7 @@ function Register() {
 							style={styles.input}
 							placeholder="عنوان البريد"
 							onChangeText={props.handleChange("email")}
+							value={props.values.email}
 						/>
 						{props.touched.email && <Text style={styles.error}>{props.errors.email}</Text>}
 
@@ -48,6 +77,7 @@ function Register() {
 							style={styles.input}
 							placeholder="رمز المرور"
 							onChangeText={props.handleChange("password")}
+							value={props.values.password}
 						/>
 						{props.touched.password && <Text style={styles.error}>{props.errors.password}</Text>}
 
@@ -57,6 +87,7 @@ function Register() {
 							style={styles.input}
 							placeholder="تأكيد رمز المرور"
 							onChangeText={props.handleChange("password2")}
+							value={props.values.password2}
 						/>
 						{props.touched.password2 && <Text style={styles.error}>{props.errors.password2}</Text>}
 
