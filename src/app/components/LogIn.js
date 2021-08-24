@@ -12,11 +12,11 @@ const loginSchema = yup.object({
 
 function LogIn() {
 	const dispatch = useDispatch()
-	const state = useSelector((state) => state.username)
+	const state = useSelector((state) => state.fail)
 
 	return (
 		<View style={styles.container}>
-			{state === null && <Text style={styles.error}>اسم المستخدم او رمز المرور غير صحيح! </Text>}
+			{state && <Text style={styles.error}>اسم المستخدم او رمز المرور غير صحيح! </Text>}
 			<Formik
 				validationSchema={loginSchema}
 				initialValues={{

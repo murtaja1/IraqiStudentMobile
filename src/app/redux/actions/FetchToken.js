@@ -18,21 +18,33 @@ export const FetchToken = (credentials) => {
 				"Content-Type": "application/json"
 			}
 		})
-			.then((data) => {
+			.then(({ data }) => {
 				navigate("Home")
-				AsyncStorage.setItem("access", data.data.access)
-				AsyncStorage.setItem("refresh", data.data.refresh)
+				AsyncStorage.setItem("access", data.access)
+				AsyncStorage.setItem("refresh", data.refresh)
+				AsyncStorage.setItem("username", credentials.username)
+
 				dispatch({
 					type: t.fetchToken,
-					payload: credentials.username
+					payload: {
+						username: credentials.username,
+						fail: false,
+						access: data.access,
+						refresh: data.refresh
+					}
 				})
 			})
 			.catch((err) => {
 				dispatch({
 					type: t.fetchToken,
-					payload: null
+					payload: { username: "", fail: true, access: "", refresh: "" }
 				})
 				console.log(err)
 			})
 	}
 }
+
+export const RetrieveTokens = (credentials) => ({
+	type: t.retrieveTokens,
+	payload: credentials
+})
