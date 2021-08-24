@@ -1,7 +1,7 @@
 import { Formik } from "formik"
 import React, { useState } from "react"
 import { Text, TextInput, View, StyleSheet, Button, ScrollView } from "react-native"
-import { registerSchema } from "../utilities/YubSchemas"
+import { registerSchema } from "../utilities/YupSchemas"
 import { handleRegister } from "../api/auth"
 
 function Register() {
