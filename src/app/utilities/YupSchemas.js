@@ -1,5 +1,10 @@
 import * as yup from "yup"
 
+export const loginSchema = yup.object({
+	username: yup.string().required("يجب ان تكتب اسم المستخدم"),
+	password: yup.string().required("يجب ان تكتب رمز المرور")
+})
+
 export const registerSchema = yup.object({
 	username: yup
 		.string()
