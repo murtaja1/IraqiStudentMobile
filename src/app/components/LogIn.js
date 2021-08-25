@@ -54,7 +54,7 @@ function LogIn() {
 								<Text style={styles.btnText}>تسجيل الدخول</Text>
 							</TouchableHighlight>
 
-							<Text style={styles.restText} onPress={() => console.log("ress")}>
+							<Text style={styles.restText} onPress={() => navigate("resetPW")}>
 								نسيت كلمة المرور؟
 							</Text>
 						</View>

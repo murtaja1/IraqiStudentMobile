@@ -11,7 +11,10 @@ import { useSelector, useDispatch } from "react-redux"
 import { RetrieveTokens } from "../redux/actions/FetchToken"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import Logout from "./Logout"
+import ResetPW from "../components/ResetPW"
+import { createStackNavigator } from "@react-navigation/stack"
 
+const Stack = createStackNavigator()
 const Drawer = createDrawerNavigator()
 
 function Navigation() {
@@ -85,7 +88,6 @@ function Navigation() {
 					{state.length === 0 && (
 						<>
 							<Drawer.Screen
-								style={{ display: "none" }}
 								name="login"
 								options={{
 									drawerIcon: ({ size }) => (
@@ -97,7 +99,7 @@ function Navigation() {
 									),
 									title: "تسجيل الدخول"
 								}}
-								component={LogIn}
+								component={LoginStack}
 							/>
 							<Drawer.Screen
 								name="register"
@@ -139,3 +141,16 @@ const styles = StyleSheet.create({
 	profile: { fontSize: 20, position: "relative", right: "25%" },
 	sideBarIcon: { position: "absolute", right: 0 }
 })
+
+function LoginStack() {
+	return (
+		<Stack.Navigator>
+			<Stack.Screen name="login2" component={LogIn} options={{ headerShown: false }} />
+			<Stack.Screen
+				name="resetPW"
+				component={ResetPW}
+				options={{ title: "أعادة ضبط كلمة المرور" }}
+			/>
+		</Stack.Navigator>
+	)
+}
