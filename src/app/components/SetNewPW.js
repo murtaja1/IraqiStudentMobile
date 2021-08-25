@@ -1,35 +1,14 @@
-import axios from "axios"
 import { Formik } from "formik"
 import React from "react"
 import { useState } from "react"
 import { View, StyleSheet, Text, TextInput, TouchableHighlight } from "react-native"
-import Const from "../Const"
-import { navigate } from "../navigation/RootNavigation"
+import { handleSetNewPW } from "../api/auth"
+
 import { setNewPWSchema } from "../utilities/YupSchemas"
 
 function SetNewPW() {
 	const [requestFail, setRequestFail] = useState({ token: false, password: false })
-	const handleSubmit = (values) => {
-		axios({
-			url: Const.mainUrl + "api/password_reset/confirm/",
-			method: "post",
-			headers: {
-				"Content-Type": "application/json"
-			},
-			data: {
-				token: values.token,
-				password: values.password
-			}
-		})
-			.then(() => navigate("login2"))
-			.catch((err) => {
-				if (err.response.data.token) {
-					setRequestFail({ email: true, password: false })
-				} else {
-					setRequestFail({ email: false, password: true })
-				}
-			})
-	}
+
 	return (
 		<View style={styles.container}>
 			<Formik
@@ -39,7 +18,7 @@ function SetNewPW() {
 					password: ""
 				}}
 				onSubmit={(values) => {
-					handleSubmit(values)
+					handleSetNewPW(values, setRequestFail)
 				}}>
 				{({ handleChange, errors, values, handleSubmit, touched }) => (
 					<View>

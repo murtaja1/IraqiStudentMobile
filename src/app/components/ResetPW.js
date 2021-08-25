@@ -1,27 +1,11 @@
-import axios from "axios"
 import { Formik } from "formik"
 import React, { useState } from "react"
 import { View, StyleSheet, Text, TextInput, TouchableHighlight } from "react-native"
-import Const from "../Const"
-import { navigate } from "../navigation/RootNavigation"
+import { handleSendEmail } from "../api/auth"
 import { resetPWSchema } from "../utilities/YupSchemas"
 
 function ResetPW() {
 	const [requestFail, setRequestFail] = useState(false)
-	const handleSubmit = (email) => {
-		axios({
-			url: Const.mainUrl + "api/password_reset/",
-			method: "post",
-			headers: {
-				"Content-Type": "application/json"
-			},
-			data: {
-				email: email
-			}
-		})
-			.then(() => navigate("setNewPW"))
-			.catch((error) => setRequestFail(true))
-	}
 	return (
 		<View style={styles.container}>
 			<Formik
@@ -30,7 +14,7 @@ function ResetPW() {
 					email: ""
 				}}
 				onSubmit={(values) => {
-					handleSubmit(values.email)
+					handleSendEmail(values.email, setRequestFail)
 				}}>
 				{({ handleChange, errors, values, handleSubmit, touched }) => (
 					<View>
