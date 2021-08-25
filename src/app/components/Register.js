@@ -1,8 +1,9 @@
 import { Formik } from "formik"
 import React, { useState } from "react"
-import { Text, TextInput, View, StyleSheet, Button, ScrollView } from "react-native"
+import { Text, TextInput, View, StyleSheet, ScrollView, TouchableHighlight } from "react-native"
 import { registerSchema } from "../utilities/YupSchemas"
 import { handleRegister } from "../api/auth"
+import { navigate } from "../navigation/RootNavigation"
 
 function Register() {
 	const [error, setError] = useState({ email: false, username: false })
@@ -64,8 +65,21 @@ function Register() {
 						{errors.password2 && touched.password2 && (
 							<Text style={styles.error}>{errors.password2}</Text>
 						)}
-
-						<Button onPress={handleSubmit} title="انشاء حساب" />
+						<View style={styles.rgstBtnContainer}>
+							<TouchableHighlight
+								activeOpactity={0.9}
+								style={styles.submitBtn}
+								underlayColor={"#2b6369"}
+								onPress={handleSubmit}>
+								<Text style={styles.btnText}>انشاء حساب</Text>
+							</TouchableHighlight>
+						</View>
+						<View style={styles.loginTextContainer}>
+							<Text style={{ fontSize: 17 }}>هل لديك حساب مسبقاً؟</Text>
+							<Text style={styles.loginText} onPress={() => navigate("login")}>
+								تسجيل الدخول
+							</Text>
+						</View>
 					</View>
 				)}
 			</Formik>
@@ -89,9 +103,30 @@ const styles = StyleSheet.create({
 		marginTop: 30,
 		margin: 10
 	},
+	rgstBtnContainer: { flexDirection: "row-reverse" },
 	error: {
 		textAlign: "center",
 		color: "crimson",
 		marginBottom: 10
+	},
+	loginTextContainer: {
+		alignItems: "center",
+		paddingTop: 10
+	},
+	loginText: {
+		color: "blue",
+		paddingTop: 5,
+		fontSize: 15
+	},
+	submitBtn: {
+		backgroundColor: "#297F87",
+		width: 100,
+		height: 35,
+		borderRadius: 6,
+		justifyContent: "center",
+		alignItems: "center"
+	},
+	btnText: {
+		color: "#fff"
 	}
 })

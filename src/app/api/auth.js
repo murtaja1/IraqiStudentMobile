@@ -4,6 +4,43 @@ import { navigate } from "../navigation/RootNavigation"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import * as t from "../redux/types"
 
+export const handleSendEmail = (email, setRequestFail) => {
+	axios({
+		url: Const.mainUrl + "api/password_reset/",
+		method: "post",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		data: {
+			email: email
+		}
+	})
+		.then(() => navigate("setNewPW"))
+		.catch(() => setRequestFail(true))
+}
+
+export const handleSetNewPW = (values, setRequestFail) => {
+	axios({
+		url: Const.mainUrl + "api/password_reset/confirm/",
+		method: "post",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		data: {
+			token: values.token,
+			password: values.password
+		}
+	})
+		.then(() => navigate("login2"))
+		.catch((err) => {
+			if (err.response.data.token) {
+				setRequestFail({ email: true, password: false })
+			} else {
+				setRequestFail({ email: false, password: true })
+			}
+		})
+}
+
 export const handleRegister = (values, resetForm, setError) => {
 	axios({
 		url: Const.mainUrl + "register",

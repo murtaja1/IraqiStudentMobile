@@ -1,7 +1,8 @@
 import { Formik } from "formik"
 import React from "react"
-import { View, StyleSheet, Text, TextInput, Button } from "react-native"
+import { View, StyleSheet, Text, TextInput, TouchableHighlight } from "react-native"
 import { useSelector, useDispatch } from "react-redux"
+import { navigate } from "../navigation/RootNavigation"
 import { FetchToken } from "../redux/actions/FetchToken"
 import { loginSchema } from "../utilities/YupSchemas"
 
@@ -44,8 +45,25 @@ function LogIn() {
 						{touched.password && errors.password && (
 							<Text style={styles.error}>{errors.password}</Text>
 						)}
+						<View style={styles.loginContainer}>
+							<TouchableHighlight
+								activeOpactity={0.9}
+								style={styles.submitBtn}
+								underlayColor={"#2b6369"}
+								onPress={handleSubmit}>
+								<Text style={styles.btnText}>تسجيل الدخول</Text>
+							</TouchableHighlight>
 
-						<Button onPress={handleSubmit} title="تسجيل الدخول" />
+							<Text style={styles.restText} onPress={() => navigate("resetPW")}>
+								نسيت كلمة المرور؟
+							</Text>
+						</View>
+						<View style={styles.rgstTextContainer}>
+							<Text style={{ fontSize: 17 }}>ليس لديك حساب مسبقاً؟</Text>
+							<Text style={styles.rgstText} onPress={() => navigate("register")}>
+								أنشاء حساب
+							</Text>
+						</View>
 					</View>
 				)}
 			</Formik>
@@ -73,5 +91,23 @@ const styles = StyleSheet.create({
 		textAlign: "center",
 		color: "crimson",
 		marginBottom: 10
-	}
+	},
+	submitBtn: {
+		backgroundColor: "#297F87",
+		width: 100,
+		height: 35,
+		borderRadius: 6,
+		justifyContent: "center",
+		alignItems: "center"
+	},
+	btnText: {
+		color: "#fff"
+	},
+	loginContainer: {
+		alignItems: "center",
+		flexDirection: "row-reverse"
+	},
+	restText: { color: "blue", paddingRight: 10, fontSize: 15 },
+	rgstTextContainer: { alignItems: "center", paddingTop: 10 },
+	rgstText: { color: "blue", paddingTop: 5, fontSize: 15 }
 })
