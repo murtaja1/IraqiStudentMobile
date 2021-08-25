@@ -5,6 +5,11 @@ export const loginSchema = yup.object({
 	password: yup.string().required("يجب ان تكتب رمز المرور")
 })
 
+export const setNewPWSchema = yup.object({
+	token: yup.string().required("يجب ان تكتب الرمز الذي تم ارساله"),
+	password: yup.string().required("يجب ان تكتب رمز مرور جديده")
+})
+
 export const resetPWSchema = yup.object({
 	email: yup
 		.string()

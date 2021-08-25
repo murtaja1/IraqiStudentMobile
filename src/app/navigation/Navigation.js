@@ -13,6 +13,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
 import Logout from "./Logout"
 import ResetPW from "../components/ResetPW"
 import { createStackNavigator } from "@react-navigation/stack"
+import SetNewPW from "../components/SetNewPW"
 
 const Stack = createStackNavigator()
 const Drawer = createDrawerNavigator()
@@ -151,6 +152,7 @@ function LoginStack() {
 				component={ResetPW}
 				options={{ title: "أعادة ضبط كلمة المرور" }}
 			/>
+			<Stack.Screen name="setNewPW" component={SetNewPW} options={{ title: "كلمة مرور جديده" }} />
 		</Stack.Navigator>
 	)
 }
