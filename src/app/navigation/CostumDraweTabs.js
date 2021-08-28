@@ -4,10 +4,11 @@ import { navigate } from "./RootNavigation"
 import { useSelector, useDispatch } from "react-redux"
 import { RetrieveTokens } from "../redux/actions/FetchToken"
 import AsyncStorage from "@react-native-async-storage/async-storage"
-import { Ionicons } from "@expo/vector-icons"
 import { StyleSheet } from "react-native"
+import { View } from "react-native"
+import { Icon } from "react-native-elements/"
 
-export default function Logout(props) {
+export default function CostumDraweTabs(props) {
 	const dispatch = useDispatch()
 	const state = useSelector((state) => state.username)
 	const handleLogout = () => {
@@ -23,7 +24,11 @@ export default function Logout(props) {
 			{state.length != 0 && (
 				<DrawerItem
 					label="تسجيل الخروج"
-					icon={({ size }) => <Ionicons size={size} name="log-out" style={styles.sideBarIcon} />}
+					icon={({ size }) => (
+						<View style={styles.sideBarIcon}>
+							<Icon name="logout" size={size} color="#000" type="material-community" />
+						</View>
+					)}
 					onPress={handleLogout}
 				/>
 			)}

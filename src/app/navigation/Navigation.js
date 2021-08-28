@@ -1,21 +1,18 @@
 import { NavigationContainer } from "@react-navigation/native"
 import { createDrawerNavigator } from "@react-navigation/drawer"
 import React, { useEffect } from "react"
-import Home from "../components/Home"
+import Home from "../screens/Home"
 import { Text, View, StyleSheet } from "react-native"
-import { Ionicons } from "@expo/vector-icons"
-import LogIn from "../components/LogIn"
 import { navigationRef } from "./RootNavigation"
-import Register from "../components/Register"
+import Register from "../screens/Register"
 import { useSelector, useDispatch } from "react-redux"
 import { RetrieveTokens } from "../redux/actions/FetchToken"
 import AsyncStorage from "@react-native-async-storage/async-storage"
-import Logout from "./Logout"
-import ResetPW from "../components/ResetPW"
-import { createStackNavigator } from "@react-navigation/stack"
-import SetNewPW from "../components/SetNewPW"
+import CostumDraweTabs from "./CostumDraweTabs"
+import LoginStack from "./LoginStack"
+import University from "../screens/University"
+import { Icon } from "react-native-elements"
 
-const Stack = createStackNavigator()
 const Drawer = createDrawerNavigator()
 
 function Navigation() {
@@ -39,7 +36,7 @@ function Navigation() {
 		<>
 			<NavigationContainer ref={navigationRef}>
 				<Drawer.Navigator
-					drawerContent={(props) => <Logout {...props} />}
+					drawerContent={(props) => <CostumDraweTabs {...props} />}
 					screenOptions={{
 						drawerPosition: "right",
 
@@ -49,12 +46,13 @@ function Navigation() {
 									<Text>{"         "}</Text>
 								</View>
 								<Text style={styles.headerName}>{props.options.title}</Text>
-								<Ionicons
-									style={styles.headerIcon}
+								<Icon
+									iconStyle={styles.headerIcon}
 									onPress={() => props.navigation.openDrawer()}
 									name="menu"
 									size={30}
-									color="#fff"></Ionicons>
+									color="#fff"
+								/>
 							</View>
 						)
 					}}>
@@ -72,19 +70,30 @@ function Navigation() {
 							component={Home}
 						/>
 					)}
+
 					<Drawer.Screen
 						name="Home"
 						options={{
 							drawerIcon: ({ size }) => (
-								<Ionicons
-									style={styles.sideBarIcon}
-									name="md-home"
-									size={size}
-									color="#000"></Ionicons>
+								<View style={styles.sideBarIcon}>
+									<Icon name="home" size={size} color="#000" type="font-awesome" />
+								</View>
 							),
 							title: "الرئسية"
 						}}
 						component={Home}
+					/>
+					<Drawer.Screen
+						name="university"
+						options={{
+							drawerIcon: ({ size }) => (
+								<View style={styles.sideBarIcon}>
+									<Icon name="graduation-cap" size={size} color="#000" type="entypo" />
+								</View>
+							),
+							title: "الجامعة"
+						}}
+						component={University}
 					/>
 					{state.length === 0 && (
 						<>
@@ -92,11 +101,9 @@ function Navigation() {
 								name="login"
 								options={{
 									drawerIcon: ({ size }) => (
-										<Ionicons
-											style={styles.sideBarIcon}
-											name="log-in"
-											size={size}
-											color="#000"></Ionicons>
+										<View style={styles.sideBarIcon}>
+											<Icon name="login" size={size} color="#000" type="entypo" />
+										</View>
 									),
 									title: "تسجيل الدخول"
 								}}
@@ -106,11 +113,9 @@ function Navigation() {
 								name="register"
 								options={{
 									drawerIcon: ({ size }) => (
-										<Ionicons
-											style={styles.sideBarIcon}
-											name="clipboard-sharp"
-											size={size}
-											color="#000"></Ionicons>
+										<View style={styles.sideBarIcon}>
+											<Icon name="clipboard" size={size} color="#000" type="entypo" />
+										</View>
 									),
 									title: "انشاء حساب"
 								}}
@@ -142,17 +147,3 @@ const styles = StyleSheet.create({
 	profile: { fontSize: 20, position: "relative", right: "25%" },
 	sideBarIcon: { position: "absolute", right: 0 }
 })
-
-function LoginStack() {
-	return (
-		<Stack.Navigator>
-			<Stack.Screen name="login2" component={LogIn} options={{ headerShown: false }} />
-			<Stack.Screen
-				name="resetPW"
-				component={ResetPW}
-				options={{ title: "أعادة ضبط كلمة المرور" }}
-			/>
-			<Stack.Screen name="setNewPW" component={SetNewPW} options={{ title: "كلمة مرور جديده" }} />
-		</Stack.Navigator>
-	)
-}
