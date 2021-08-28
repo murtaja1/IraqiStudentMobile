@@ -1,35 +1,47 @@
 import React, { useEffect, useState } from "react"
-import { ScrollView, StyleSheet } from "react-native"
+import { StyleSheet } from "react-native"
+import { FlatList } from "react-native"
 import { ActivityIndicator } from "react-native"
 import { Card, Text } from "react-native-elements"
 import { fetchUniversities } from "../api/dataFetching"
 import { getArabDate } from "../utilities/ArabDate"
 function card() {
-	const [universities, setUniversities] = useState(Array())
+	const [universities, setUniversities] = useState()
+	const [page, setPage] = useState(6)
 
 	useEffect(() => {
-		fetchUniversities(setUniversities)
-	}, [])
-	return (
-		<ScrollView>
-			{universities.length > 0 &&
-				universities.map((card, index) => (
-					<Card containerStyle={styles.container} key={index}>
-						<Card.Title h4 onPress={() => console.log("clieck")}>
-							{card.name}
-						</Card.Title>
-						<Card.Image
-							source={{
-								uri: card.card_image
-							}}
-							PlaceholderContent={<ActivityIndicator />}
-						/>
-						<Text style={{ paddingTop: 10 }}>{card.card_text}</Text>
-						<Card.Divider style={styles.divider} />
-						<Text style={{ fontSize: 10 }}>{getArabDate(card.last_updated)}</Text>
-					</Card>
-				))}
-		</ScrollView>
+		fetchUniversities(setUniversities, page)
+	}, [page])
+
+	return universities !== undefined ? (
+		<FlatList
+			data={universities.results}
+			keyExtractor={(item) => item.name}
+			renderItem={({ item }) => (
+				<Card containerStyle={styles.container}>
+					<Card.Title h4 onPress={() => console.log("clieck")}>
+						{item.name}
+					</Card.Title>
+					<Card.Image
+						source={{
+							uri: item.card_image
+						}}
+						PlaceholderContent={<ActivityIndicator />}
+					/>
+					<Text style={{ paddingTop: 10 }}>{item.card_text}</Text>
+					<Card.Divider style={styles.divider} />
+					<Text style={{ fontSize: 10 }}>{getArabDate(item.last_updated)}</Text>
+				</Card>
+			)}
+			ListFooterComponent={
+				universities.next !== null && <ActivityIndicator animating size="large" color="blue" />
+			}
+			onEndReached={() => setPage(page + 3)}
+			onEndReachedThreshold={1}
+			initialNumToRender={3}
+		/>
+	) : (
+		<ActivityIndicator animating size="large" color="blue" />
 	)
 }
 
