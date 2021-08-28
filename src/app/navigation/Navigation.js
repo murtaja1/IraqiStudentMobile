@@ -3,7 +3,6 @@ import { createDrawerNavigator } from "@react-navigation/drawer"
 import React, { useEffect } from "react"
 import Home from "../screens/Home"
 import { Text, View, StyleSheet } from "react-native"
-import { Ionicons } from "@expo/vector-icons"
 import { navigationRef } from "./RootNavigation"
 import Register from "../screens/Register"
 import { useSelector, useDispatch } from "react-redux"
@@ -11,6 +10,8 @@ import { RetrieveTokens } from "../redux/actions/FetchToken"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import CostumDraweTabs from "./CostumDraweTabs"
 import LoginStack from "./LoginStack"
+import University from "../screens/University"
+import { Icon } from "react-native-elements"
 
 const Drawer = createDrawerNavigator()
 
@@ -45,12 +46,13 @@ function Navigation() {
 									<Text>{"         "}</Text>
 								</View>
 								<Text style={styles.headerName}>{props.options.title}</Text>
-								<Ionicons
-									style={styles.headerIcon}
+								<Icon
+									iconStyle={styles.headerIcon}
 									onPress={() => props.navigation.openDrawer()}
 									name="menu"
 									size={30}
-									color="#fff"></Ionicons>
+									color="#fff"
+								/>
 							</View>
 						)
 					}}>
@@ -68,19 +70,30 @@ function Navigation() {
 							component={Home}
 						/>
 					)}
+
 					<Drawer.Screen
 						name="Home"
 						options={{
 							drawerIcon: ({ size }) => (
-								<Ionicons
-									style={styles.sideBarIcon}
-									name="md-home"
-									size={size}
-									color="#000"></Ionicons>
+								<View style={styles.sideBarIcon}>
+									<Icon name="home" size={size} color="#000" type="font-awesome" />
+								</View>
 							),
 							title: "الرئسية"
 						}}
 						component={Home}
+					/>
+					<Drawer.Screen
+						name="university"
+						options={{
+							drawerIcon: ({ size }) => (
+								<View style={styles.sideBarIcon}>
+									<Icon name="graduation-cap" size={size} color="#000" type="entypo" />
+								</View>
+							),
+							title: "الجامعة"
+						}}
+						component={University}
 					/>
 					{state.length === 0 && (
 						<>
@@ -88,11 +101,9 @@ function Navigation() {
 								name="login"
 								options={{
 									drawerIcon: ({ size }) => (
-										<Ionicons
-											style={styles.sideBarIcon}
-											name="log-in"
-											size={size}
-											color="#000"></Ionicons>
+										<View style={styles.sideBarIcon}>
+											<Icon name="login" size={size} color="#000" type="entypo" />
+										</View>
 									),
 									title: "تسجيل الدخول"
 								}}
@@ -102,11 +113,9 @@ function Navigation() {
 								name="register"
 								options={{
 									drawerIcon: ({ size }) => (
-										<Ionicons
-											style={styles.sideBarIcon}
-											name="clipboard-sharp"
-											size={size}
-											color="#000"></Ionicons>
+										<View style={styles.sideBarIcon}>
+											<Icon name="clipboard" size={size} color="#000" type="entypo" />
+										</View>
 									),
 									title: "انشاء حساب"
 								}}
