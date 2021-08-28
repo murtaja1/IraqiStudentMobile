@@ -4,18 +4,14 @@ import React, { useEffect } from "react"
 import Home from "../screens/Home"
 import { Text, View, StyleSheet } from "react-native"
 import { Ionicons } from "@expo/vector-icons"
-import LogIn from "../screens/LogIn"
 import { navigationRef } from "./RootNavigation"
 import Register from "../screens/Register"
 import { useSelector, useDispatch } from "react-redux"
 import { RetrieveTokens } from "../redux/actions/FetchToken"
 import AsyncStorage from "@react-native-async-storage/async-storage"
-import Logout from "./Logout"
-import ResetPW from "../screens/ResetPW"
-import { createStackNavigator } from "@react-navigation/stack"
-import SetNewPW from "../screens/SetNewPW"
+import CostumDraweTabs from "./CostumDraweTabs"
+import LoginStack from "./LoginStack"
 
-const Stack = createStackNavigator()
 const Drawer = createDrawerNavigator()
 
 function Navigation() {
@@ -39,7 +35,7 @@ function Navigation() {
 		<>
 			<NavigationContainer ref={navigationRef}>
 				<Drawer.Navigator
-					drawerContent={(props) => <Logout {...props} />}
+					drawerContent={(props) => <CostumDraweTabs {...props} />}
 					screenOptions={{
 						drawerPosition: "right",
 
@@ -142,17 +138,3 @@ const styles = StyleSheet.create({
 	profile: { fontSize: 20, position: "relative", right: "25%" },
 	sideBarIcon: { position: "absolute", right: 0 }
 })
-
-function LoginStack() {
-	return (
-		<Stack.Navigator>
-			<Stack.Screen name="login2" component={LogIn} options={{ headerShown: false }} />
-			<Stack.Screen
-				name="resetPW"
-				component={ResetPW}
-				options={{ title: "أعادة ضبط كلمة المرور" }}
-			/>
-			<Stack.Screen name="setNewPW" component={SetNewPW} options={{ title: "كلمة مرور جديده" }} />
-		</Stack.Navigator>
-	)
-}

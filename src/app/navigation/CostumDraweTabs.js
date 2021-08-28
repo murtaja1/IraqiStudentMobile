@@ -7,7 +7,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
 import { Ionicons } from "@expo/vector-icons"
 import { StyleSheet } from "react-native"
 
-export default function Logout(props) {
+export default function CostumDraweTabs(props) {
 	const dispatch = useDispatch()
 	const state = useSelector((state) => state.username)
 	const handleLogout = () => {
