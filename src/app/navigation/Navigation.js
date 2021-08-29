@@ -10,8 +10,8 @@ import { RetrieveTokens } from "../redux/actions/FetchToken"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import CostumDraweTabs from "./CostumDraweTabs"
 import LoginStack from "./LoginStack"
-import University from "../screens/University"
 import { Icon } from "react-native-elements"
+import UniverNews from "../screens/UniverNews"
 
 const Drawer = createDrawerNavigator()
 
@@ -93,7 +93,21 @@ function Navigation() {
 							),
 							title: "الجامعة"
 						}}
-						component={University}
+						initialParams={{ name: "universities" }}
+						component={UniverNews}
+					/>
+					<Drawer.Screen
+						name="news"
+						options={{
+							drawerIcon: ({ size }) => (
+								<View style={styles.sideBarIcon}>
+									<Icon name="graduation-cap" size={size} color="#000" type="entypo" />
+								</View>
+							),
+							title: "الاخبار"
+						}}
+						initialParams={{ name: "news" }}
+						component={UniverNews}
 					/>
 					{state.length === 0 && (
 						<>

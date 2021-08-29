@@ -3,25 +3,28 @@ import { StyleSheet } from "react-native"
 import { FlatList } from "react-native"
 import { ActivityIndicator } from "react-native"
 import { Card, Text } from "react-native-elements"
-import { fetchUniversities } from "../api/dataFetching"
+import { fetchData } from "../api/dataFetching"
 import { getArabDate } from "../utilities/ArabDate"
-function card() {
-	const [universities, setUniversities] = useState()
+
+function UniverNews({ route }) {
+	const [data, setData] = useState()
 	const [page, setPage] = useState(6)
 
 	useEffect(() => {
-		fetchUniversities(setUniversities, page)
+		fetchData(setData, page, route.params.name)
 	}, [page])
 
-	return universities !== undefined ? (
+	return data !== undefined ? (
 		<FlatList
-			data={universities.results}
-			keyExtractor={(item) => item.name}
+			data={data.results}
+			keyExtractor={(item) => item.card_text}
 			renderItem={({ item }) => (
 				<Card containerStyle={styles.container}>
-					<Card.Title h4 onPress={() => console.log("clieck")}>
-						{item.name}
-					</Card.Title>
+					{route.params.name === "universities" && (
+						<Card.Title h4 onPress={() => console.log("clieck")}>
+							{item.name}
+						</Card.Title>
+					)}
 					<Card.Image
 						source={{
 							uri: item.card_image
@@ -34,7 +37,7 @@ function card() {
 				</Card>
 			)}
 			ListFooterComponent={
-				universities.next !== null && <ActivityIndicator animating size="large" color="blue" />
+				data.next !== null && <ActivityIndicator animating size="large" color="blue" />
 			}
 			onEndReached={() => setPage(page + 3)}
 			onEndReachedThreshold={1}
@@ -45,7 +48,7 @@ function card() {
 	)
 }
 
-export default card
+export default UniverNews
 
 const styles = StyleSheet.create({
 	container: {
