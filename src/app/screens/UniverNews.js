@@ -12,7 +12,8 @@ function UniverNews({ route }) {
 	const [page, setPage] = useState(6)
 
 	useEffect(() => {
-		fetchData(setData, page, route.params.name)
+		const subUrl = `${route.params.name}?page=1&page_size=${page}`
+		fetchData(setData, subUrl)
 	}, [page])
 
 	return data !== undefined ? (

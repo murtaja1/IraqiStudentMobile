@@ -1,8 +1,10 @@
 import axios from "axios"
 import Const from "../Const"
 
-export const fetchData = (setData, page, subUrl) => {
-	axios.get(Const.mainUrl + `${subUrl}?page=1&page_size=${page}`).then((res) => setData(res.data))
+export const fetchData = (setData, subUrl) => {
+	axios.get(Const.mainUrl + subUrl).then((res) => {
+		setData(res.data)
+	})
 }
 
 export const fetchUniversity = (id, setUniversity) => {
@@ -16,7 +18,6 @@ export const fetchUniversity = (id, setUniversity) => {
 				data.collages_num,
 				data.students_num
 			]
-		}),
-			console.log(data)
+		})
 	})
 }
