@@ -5,6 +5,7 @@ import { ActivityIndicator } from "react-native"
 import { Card, Text } from "react-native-elements"
 import { fetchData } from "../api/dataFetching"
 import { getArabDate } from "../utilities/ArabDate"
+import { navigate } from "../navigation/RootNavigation"
 
 function UniverNews({ route }) {
 	const [data, setData] = useState()
@@ -21,7 +22,7 @@ function UniverNews({ route }) {
 			renderItem={({ item }) => (
 				<Card containerStyle={styles.container}>
 					{route.params.name === "universities" && (
-						<Card.Title h4 onPress={() => console.log("clieck")}>
+						<Card.Title h4 onPress={() => navigate("universityDetails", { id: item.id })}>
 							{item.name}
 						</Card.Title>
 					)}
@@ -39,7 +40,7 @@ function UniverNews({ route }) {
 			ListFooterComponent={
 				data.next !== null && <ActivityIndicator animating size="large" color="blue" />
 			}
-			onEndReached={() => setPage(page + 3)}
+			onEndReached={() => data.next !== null && setPage(page + 3)}
 			onEndReachedThreshold={1}
 			initialNumToRender={3}
 		/>
