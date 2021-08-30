@@ -1,56 +1,55 @@
 import React, { useEffect, useState } from "react"
-import { StyleSheet } from "react-native"
-import { FlatList } from "react-native"
-import { ActivityIndicator } from "react-native"
-import { Card, Text } from "react-native-elements"
-import { fetchUniversities } from "../api/dataFetching"
-import { getArabDate } from "../utilities/ArabDate"
-function card() {
-	const [universities, setUniversities] = useState()
-	const [page, setPage] = useState(6)
+import { ScrollView, StyleSheet } from "react-native"
+import { Text } from "react-native-elements"
+import { fetchData, fetchUniversity } from "../api/dataFetching"
+import UniversityTable from "../components/UniversityTable"
+
+function University({ route }) {
+	const [university, setUniversity] = useState()
+	const [collages, setCollages] = useState()
+	useEffect(() => {
+		fetchUniversity(route.params.id, setUniversity)
+	}, [])
 
 	useEffect(() => {
-		fetchUniversities(setUniversities, page)
-	}, [page])
-
-	return universities !== undefined ? (
-		<FlatList
-			data={universities.results}
-			keyExtractor={(item) => item.name}
-			renderItem={({ item }) => (
-				<Card containerStyle={styles.container}>
-					<Card.Title h4 onPress={() => console.log("clieck")}>
-						{item.name}
-					</Card.Title>
-					<Card.Image
-						source={{
-							uri: item.card_image
-						}}
-						PlaceholderContent={<ActivityIndicator />}
-					/>
-					<Text style={{ paddingTop: 10 }}>{item.card_text}</Text>
-					<Card.Divider style={styles.divider} />
-					<Text style={{ fontSize: 10 }}>{getArabDate(item.last_updated)}</Text>
-				</Card>
+		if (university !== undefined) {
+			fetchData(setCollages, `collages?university__name=${university.data.name}`)
+		}
+	}, [university])
+	return (
+		<ScrollView contentContainerStyle={{ margin: 10 }}>
+			{university !== undefined && (
+				<>
+					<UniversityTable university={university} />
+					<Text style={styles.title}>كليات {university.data.name}:</Text>
+					{collages !== undefined && (
+						<>
+							{collages.results.map((collage, index) => (
+								<Text key={index} style={styles.collagesText}>
+									{index + 1}- {collage.name}
+								</Text>
+							))}
+							{collages.count === 0 && (
+								<Text style={styles.noCollText}>لم يتم ادراج اي كلية حاليا!</Text>
+							)}
+						</>
+					)}
+					<Text style={styles.title}>معلومات أكثر: </Text>
+					<Text style={{ marginBottom: 10 }}>{university.data.description}</Text>
+				</>
 			)}
-			ListFooterComponent={
-				universities.next !== null && <ActivityIndicator animating size="large" color="blue" />
-			}
-			onEndReached={() => setPage(page + 3)}
-			onEndReachedThreshold={1}
-			initialNumToRender={3}
-		/>
-	) : (
-		<ActivityIndicator animating size="large" color="blue" />
+		</ScrollView>
 	)
 }
 
-export default card
+export default University
 
 const styles = StyleSheet.create({
-	container: {
-		margin: 10,
-		borderWidth: 0
+	title: {
+		fontSize: 20,
+		fontWeight: "bold",
+		paddingTop: 10
 	},
-	divider: { width: 140, position: "relative", left: 167, paddingTop: 10 }
+	collagesText: { paddingRight: 10, fontSize: 20 },
+	noCollText: { fontSize: 15, paddingRight: 10, paddingTop: 5, color: "red" }
 })
