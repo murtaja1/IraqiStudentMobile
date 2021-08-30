@@ -1,5 +1,5 @@
 import React from "react"
-import { View, TouchableOpacity, Linking } from "react-native"
+import { View, TouchableOpacity, Linking, StyleSheet } from "react-native"
 import { DataTable } from "react-native-paper"
 import { Text, Image } from "react-native-elements"
 
@@ -8,15 +8,15 @@ const sideTableTitle = ["التأسيس", "المحافظة", "الرئيس", "�
 function UniversityTable({ university }) {
 	return (
 		<>
-			<DataTable style={{ borderWidth: 0.5, borderBottomWidth: 0 }}>
-				<Text style={{ paddingTop: 5, textAlign: "center" }} h4>
+			<DataTable style={styles.wrapperBorder}>
+				<Text style={styles.title} h4>
 					{university.data.name}
 				</Text>
 				<View style={{ alignItems: "center" }}>
 					<Image source={{ uri: university.data.logo }} style={{ width: 100, height: 100 }} />
 				</View>
 
-				<DataTable.Row style={{ borderBottomWidth: 0.5, borderBottomColor: "black" }}>
+				<DataTable.Row style={styles.tableBorder}>
 					<DataTable.Cell numeric="center">
 						<Text>
 							{university.data.country}
@@ -32,7 +32,7 @@ function UniversityTable({ university }) {
 					<DataTable.Cell numeric>البلد</DataTable.Cell>
 				</DataTable.Row>
 				{sideTableTitle.map((title, index) => (
-					<DataTable.Row key={index} style={{ borderBottomWidth: 0.5, borderBottomColor: "black" }}>
+					<DataTable.Row key={index} style={styles.tableBorder}>
 						<DataTable.Cell numeric="center">
 							<Text>{university.tableContent[index]}</Text>
 						</DataTable.Cell>
@@ -40,7 +40,7 @@ function UniversityTable({ university }) {
 					</DataTable.Row>
 				))}
 
-				<DataTable.Row style={{ borderBottomWidth: 0.5, borderBottomColor: "black" }}>
+				<DataTable.Row style={styles.tableBorder}>
 					<DataTable.Cell numeric="center">
 						<TouchableOpacity onPress={() => Linking.openURL(university.data.website)}>
 							<Text style={{ color: "blue" }}>اضغط هنا</Text>
@@ -54,3 +54,12 @@ function UniversityTable({ university }) {
 }
 
 export default UniversityTable
+
+const styles = StyleSheet.create({
+	title: {
+		paddingTop: 5,
+		textAlign: "center"
+	},
+	wrapperBorder: { borderWidth: 0.5, borderBottomWidth: 0 },
+	tableBorder: { borderBottomWidth: 0.5, borderBottomColor: "black" }
+})
