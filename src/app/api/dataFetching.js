@@ -9,7 +9,13 @@ export const fetchUniversity = (id, setUniversity) => {
 	axios.get(Const.mainUrl + `universities/${id}`).then(({ data }) => {
 		setUniversity({
 			data: data,
-			tableContent: [data.province, data.president, data.collages_num, data.students_num]
+			tableContent: [
+				data.establishment,
+				data.province,
+				data.president,
+				data.collages_num,
+				data.students_num
+			]
 		}),
 			console.log(data)
 	})
