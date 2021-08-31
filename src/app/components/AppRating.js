@@ -34,7 +34,7 @@ function AppRating({ id }) {
 				{state.username === "" ? (
 					<Text>
 						يرجىء
-						<Text onPress={() => navigate("login")} style={{ color: "blue", fontWeight: "bold" }}>
+						<Text onPress={() => navigate("login")} style={styles.loginText}>
 							تسجيل الدخول
 						</Text>
 						للتقيم
@@ -55,5 +55,6 @@ const styles = StyleSheet.create({
 		padding: 10
 	},
 	infoText: { textAlign: "center", fontSize: 12 },
-	value: { textAlign: "center", color: "gold" }
+	value: { textAlign: "center", color: "gold" },
+	loginText: { color: "blue", fontWeight: "bold" }
 })
