@@ -1,4 +1,4 @@
-import { NavigationContainer } from "@react-navigation/native"
+import { NavigationContainer, DefaultTheme } from "@react-navigation/native"
 import { createDrawerNavigator } from "@react-navigation/drawer"
 import React, { useEffect } from "react"
 import Home from "../screens/Home"
@@ -15,6 +15,14 @@ import UniverNews from "../screens/UniverNews"
 import UniversityStack from "./UniversityStack"
 
 const Drawer = createDrawerNavigator()
+
+const MyTheme = {
+	...DefaultTheme,
+	colors: {
+		...DefaultTheme.colors,
+		background: "white"
+	}
+}
 
 function Navigation() {
 	const state = useSelector((state) => state.username)
@@ -35,7 +43,7 @@ function Navigation() {
 
 	return (
 		<>
-			<NavigationContainer ref={navigationRef}>
+			<NavigationContainer theme={MyTheme} ref={navigationRef}>
 				<Drawer.Navigator
 					drawerContent={(props) => <CostumDraweTabs {...props} />}
 					screenOptions={{

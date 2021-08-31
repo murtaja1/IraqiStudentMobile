@@ -20,7 +20,7 @@ function University({ route }) {
 		<ScrollView contentContainerStyle={{ margin: 10 }}>
 			{university !== undefined && (
 				<>
-					<UniversityTable university={university} />
+					<UniversityTable university={university} id={route.params.id} />
 					<Text style={styles.title}>كليات {university.data.name}:</Text>
 					{collages !== undefined && (
 						<>
