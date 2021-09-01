@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react"
 import { View, StyleSheet } from "react-native"
 import { Rating, Text } from "react-native-elements"
 import { useSelector } from "react-redux"
-import { fetchRating, sendRating } from "../api/dataFetching"
+import { fetchRating } from "../api/FetchingData"
+import { sendRating } from "../api/SendingData"
 import { navigate } from "../navigation/RootNavigation"
 
 function AppRating({ id }) {
@@ -17,7 +18,7 @@ function AppRating({ id }) {
 	}, [])
 	return (
 		<View>
-			<Text h3 style={styles.value}>
+			<Text h4 style={styles.value}>
 				{value !== undefined && value}
 			</Text>
 			<Rating
@@ -25,7 +26,7 @@ function AppRating({ id }) {
 				type="custom"
 				startingValue={value}
 				ratingCount={5}
-				imageSize={40}
+				imageSize={30}
 				tintColor="white"
 				ratingBackgroundColor="lightgray"
 				onFinishRating={handleSendRating}
@@ -33,14 +34,14 @@ function AppRating({ id }) {
 			<Text style={styles.infoText}>
 				{state.username === "" ? (
 					<Text>
-						يرجىء
+						يرجىء{" "}
 						<Text onPress={() => navigate("login")} style={styles.loginText}>
 							تسجيل الدخول
-						</Text>
+						</Text>{" "}
 						للتقيم
 					</Text>
 				) : (
-					"للتقييم اضغط على النجوم"
+					"للتقييم اضغط على أحدى النجوم"
 				)}
 			</Text>
 		</View>
@@ -50,11 +51,7 @@ function AppRating({ id }) {
 export default AppRating
 
 const styles = StyleSheet.create({
-	container: {
-		backgroundColor: "red",
-		padding: 10
-	},
-	infoText: { textAlign: "center", fontSize: 12 },
+	infoText: { textAlign: "center", fontSize: 10 },
 	value: { textAlign: "center", color: "gold" },
-	loginText: { color: "blue", fontWeight: "bold" }
+	loginText: { color: "blue", fontWeight: "bold", fontSize: 12 }
 })
