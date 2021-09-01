@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react"
+import { ActivityIndicator } from "react-native"
 import { View, StyleSheet } from "react-native"
 import { Text, Button } from "react-native-elements"
-import { Icon } from "react-native-elements/dist/icons/Icon"
 import { fetchData } from "../../api/FetchingData"
+import ReviewChild from "./ReviewChild"
 
 function Reviews({ title, url, empty }) {
 	const [reviews, setRewiews] = useState()
-	const [pageNum, setPageNum] = useState(3)
+	const [pageNum, setPageNum] = useState(6)
 	const [loading, setLoading] = useState(false)
 	useEffect(() => {
 		const subUrl = url + `&page=1&page_size=${pageNum}`
@@ -21,32 +22,23 @@ function Reviews({ title, url, empty }) {
 	return (
 		<View>
 			<Text style={styles.title}>{title}: </Text>
-			{reviews !== undefined && (
+			{reviews !== undefined ? (
 				<>
 					{reviews.results.map((review, index) => (
-						<Child review={review} key={index} />
+						<ReviewChild review={review} key={index} />
 					))}
 
 					{reviews.next !== null && (
 						<Button
 							title="تحيمل المزيد"
 							loading={loading}
-							onPress={() => setPageNum(pageNum + 3)}
+							onPress={() => setPageNum(pageNum + 6)}
 						/>
 					)}
-					{reviews.count === 0 && (
-						<Text
-							style={{
-								fontSize: 15,
-								paddingRight: 10,
-								paddingTop: 5,
-								color: "red",
-								textAlign: "center"
-							}}>
-							{empty}
-						</Text>
-					)}
+					{reviews.count === 0 && <Text style={styles.empty}>{empty}</Text>}
 				</>
+			) : (
+				<ActivityIndicator color="blue" />
 			)}
 		</View>
 	)
@@ -58,38 +50,12 @@ const styles = StyleSheet.create({
 		fontSize: 20,
 		fontWeight: "bold",
 		paddingVertical: 10
+	},
+	empty: {
+		fontSize: 15,
+		paddingRight: 10,
+		paddingTop: 5,
+		color: "red",
+		textAlign: "center"
 	}
 })
-
-const Child = ({ review }) => {
-	return (
-		<View style={{ borderWidth: 1, borderColor: "lightgray", borderRadius: 3, marginBottom: 10 }}>
-			<View
-				style={{
-					flex: 1,
-					flexDirection: "row-reverse",
-					justifyContent: "space-between",
-					alignItems: "center"
-				}}>
-				<Text
-					style={{
-						fontSize: 15,
-						fontWeight: "bold",
-						textAlign: "right",
-						paddingRight: 5
-					}}>
-					{review.username}
-					<Icon name="user" iconStyle={{ paddingLeft: 5 }} size={10} color="#000" type="entypo" />
-				</Text>
-				<Icon
-					onPress={() => console.log(review.id)}
-					name="dots-three-vertical"
-					size={15}
-					color="#000"
-					type="entypo"
-				/>
-			</View>
-			<Text style={{ fontSize: 15, paddingHorizontal: 5 }}>{review.review}</Text>
-		</View>
-	)
-}
