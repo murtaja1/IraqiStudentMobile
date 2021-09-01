@@ -4,7 +4,7 @@ import { Text, Button } from "react-native-elements"
 import { Icon } from "react-native-elements/dist/icons/Icon"
 import { fetchData } from "../../api/FetchingData"
 
-function Reviews({ title, url }) {
+function Reviews({ title, url, empty }) {
 	const [reviews, setRewiews] = useState()
 	const [pageNum, setPageNum] = useState(3)
 	const [loading, setLoading] = useState(false)
@@ -33,6 +33,18 @@ function Reviews({ title, url }) {
 							loading={loading}
 							onPress={() => setPageNum(pageNum + 3)}
 						/>
+					)}
+					{reviews.count === 0 && (
+						<Text
+							style={{
+								fontSize: 15,
+								paddingRight: 10,
+								paddingTop: 5,
+								color: "red",
+								textAlign: "center"
+							}}>
+							{empty}
+						</Text>
 					)}
 				</>
 			)}
