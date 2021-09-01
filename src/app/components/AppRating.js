@@ -51,10 +51,6 @@ function AppRating({ id }) {
 export default AppRating
 
 const styles = StyleSheet.create({
-	container: {
-		backgroundColor: "red",
-		padding: 10
-	},
 	infoText: { textAlign: "center", fontSize: 10 },
 	value: { textAlign: "center", color: "gold" },
 	loginText: { color: "blue", fontWeight: "bold", fontSize: 12 }
