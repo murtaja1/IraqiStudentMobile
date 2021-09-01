@@ -4,8 +4,9 @@ import { View, StyleSheet } from "react-native"
 import { Text, Button } from "react-native-elements"
 import { fetchData } from "../../api/FetchingData"
 import ReviewChild from "./ReviewChild"
+import ReviewForm from "./ReviewForm"
 
-function Reviews({ title, url, empty }) {
+function Reviews({ title, url, empty, id }) {
 	const [reviews, setRewiews] = useState()
 	const [pageNum, setPageNum] = useState(6)
 	const [loading, setLoading] = useState(false)
@@ -36,6 +37,9 @@ function Reviews({ title, url, empty }) {
 						/>
 					)}
 					{reviews.count === 0 && <Text style={styles.empty}>{empty}</Text>}
+					<View style={{ paddingTop: 20 }}>
+						<ReviewForm subUrl={url} id={id} setPageNum={setPageNum} />
+					</View>
 				</>
 			) : (
 				<ActivityIndicator color="blue" />

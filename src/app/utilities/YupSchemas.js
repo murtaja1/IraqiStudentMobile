@@ -34,3 +34,7 @@ export const registerSchema = yup.object({
 		.max(100, "يجب ان يكون رمز المرور اقل من 100 احرف"),
 	password2: yup.string().oneOf([yup.ref("password"), null], "رمز المرور غير متطابق!")
 })
+
+export const reviewSchema = yup.object({
+	text: yup.string().required()
+})

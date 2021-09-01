@@ -45,3 +45,39 @@ export const sendRating = async (setValue, subUrl, username, rating, refresh, bu
 		alert("حدث خطأ اثنأ تحميل المحتوى, يرجىء غلق التطبيق و فتحه مرة اخرى!")
 	}
 }
+
+export const sendReview = async (
+	review,
+	subUrl,
+	refresh,
+	username,
+	buildingID,
+	setLoading,
+	resetForm,
+	setPageNum
+) => {
+	console.log(username, refresh)
+	const access = await UpdateAccessToken(refresh)
+	const userId = await fetchaUserId(username)
+	try {
+		const promise = await axios({
+			method: "post",
+			url: Const.mainUrl + subUrl,
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: "Bearer " + access
+			},
+			data: {
+				review: review,
+				user: userId,
+				building: buildingID
+			}
+		})
+		const res = await promise.data
+		setLoading(false)
+		resetForm()
+		setPageNum(10)
+	} catch (err) {
+		alert("حدث خطأ اثنأ تحميل المحتوى, يرجىء غلق التطبيق و فتحه مرة اخرى!")
+	}
+}

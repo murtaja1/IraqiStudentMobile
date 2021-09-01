@@ -41,6 +41,7 @@ function University({ route }) {
 					<Reviews
 						title={`مراجعات ${university.data.name}`}
 						url={`university_reviews?building__id=${route.params.id}`}
+						id={route.params.id}
 						empty={`لا مراجعات حتى الان! ${"\n"} (كون اول المراجعين)`}
 					/>
 					<View style={{ marginBottom: 50 }}></View>
