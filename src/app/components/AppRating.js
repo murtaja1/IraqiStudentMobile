@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react"
 import { View, StyleSheet } from "react-native"
 import { Rating, Text } from "react-native-elements"
 import { useSelector } from "react-redux"
-import { fetchRating, sendRating } from "../api/dataFetching"
+import { fetchRating } from "../api/FetchingData"
+import { sendRating } from "../api/SendingData"
 import { navigate } from "../navigation/RootNavigation"
 
 function AppRating({ id }) {

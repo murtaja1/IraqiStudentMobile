@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native"
 import { FlatList } from "react-native"
 import { ActivityIndicator } from "react-native"
 import { Card, Text } from "react-native-elements"
-import { fetchData } from "../api/dataFetching"
+import { fetchData } from "../api/FetchingData"
 import { getArabDate } from "../utilities/ArabDate"
 import { navigate } from "../navigation/RootNavigation"
 

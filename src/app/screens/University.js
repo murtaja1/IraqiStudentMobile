@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { ScrollView, StyleSheet } from "react-native"
 import { Text } from "react-native-elements"
-import { fetchData, fetchUniversity } from "../api/dataFetching"
+import { fetchData, fetchUniversity } from "../api/FetchingData"
 import UniversityTable from "../components/UniversityTable"
 
 function University({ route }) {
