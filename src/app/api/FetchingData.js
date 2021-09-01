@@ -11,6 +11,7 @@ export const fetchData = async (setData, subUrl) => {
 	}
 }
 
+// not needed mix it with the above
 export const fetchUniversity = async (id, setUniversity) => {
 	try {
 		const promise = await axios.get(Const.mainUrl + `universities/${id}`)
