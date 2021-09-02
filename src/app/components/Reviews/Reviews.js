@@ -5,7 +5,7 @@ import { Text, Button } from "react-native-elements"
 import { useSelector } from "react-redux"
 import { fetchData } from "../../api/FetchingData"
 import ReviewChild from "./ReviewChild"
-import ReviewForm from "./ReviewForm"
+import AddReview from "./AddReview"
 import { navigate } from "../../navigation/RootNavigation"
 
 function Reviews({ title, url, empty, id }) {
@@ -43,7 +43,7 @@ function Reviews({ title, url, empty, id }) {
 					{reviews.count === 0 && <Text style={styles.empty}>{empty}</Text>}
 					{state != "" ? (
 						<View style={{ paddingTop: 20 }}>
-							<ReviewForm subUrl={url} id={id} setPageNum={setPageNum} />
+							<AddReview subUrl={url} id={id} setPageNum={setPageNum} />
 						</View>
 					) : (
 						<Text style={styles.infoText}>

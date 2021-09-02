@@ -6,7 +6,7 @@ import { useSelector } from "react-redux"
 import { sendReview } from "../../api/SendingData"
 import { reviewSchema } from "../../utilities/YupSchemas"
 
-function ReviewForm({ subUrl, id, setPageNum }) {
+function AddReview({ subUrl, id, setPageNum }) {
 	const [loading, setLoading] = useState(false)
 	const state = useSelector((state) => state)
 	const handleSendReview = (text, resetForm) => {
@@ -50,7 +50,7 @@ function ReviewForm({ subUrl, id, setPageNum }) {
 	)
 }
 
-export default ReviewForm
+export default AddReview
 
 const styles = StyleSheet.create({
 	title: {
