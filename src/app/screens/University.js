@@ -40,7 +40,7 @@ function University({ route }) {
 					<Text>{university.data.description}</Text>
 					<Reviews
 						title={`مراجعات ${university.data.name}`}
-						url={`university_reviews?building__id=${route.params.id}`}
+						url="university_reviews"
 						id={route.params.id}
 						empty={`لا مراجعات حتى الان! ${"\n"} (كون اول المراجعين)`}
 					/>
