@@ -33,7 +33,13 @@ function Reviews({ title, url, empty, id }) {
 			{reviews !== undefined ? (
 				<>
 					{reviews.results.map((review, index) => (
-						<ReviewChild handleFetching={handleFetching} review={review} url={url} key={index} />
+						<ReviewChild
+							handleFetching={handleFetching}
+							review={review}
+							url={url}
+							buildingId={id}
+							key={index}
+						/>
 					))}
 
 					{reviews.next !== null && (

@@ -4,7 +4,7 @@ import { Text } from "react-native-elements"
 import { Icon } from "react-native-elements/dist/icons/Icon"
 import ReviewBtns from "./ReviewBtns"
 
-const ReviewChild = ({ review, url, handleFetching }) => {
+const ReviewChild = ({ review, url, handleFetching, buildingId }) => {
 	const [menu, setMenu] = useState(false)
 	const showBtns = () => setMenu(true)
 	return (
@@ -27,8 +27,10 @@ const ReviewChild = ({ review, url, handleFetching }) => {
 			<ReviewBtns
 				menu={menu}
 				setMenu={setMenu}
+				text={review.review}
 				handleFetching={handleFetching}
 				subUrl={`${url}/${review.id}/`}
+				buildingId={buildingId}
 			/>
 		</View>
 	)

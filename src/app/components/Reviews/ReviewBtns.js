@@ -7,9 +7,11 @@ import { Icon } from "react-native-elements/dist/icons/Icon"
 import Modal from "react-native-modal"
 import { useSelector } from "react-redux"
 import { handleDeleteReview } from "../../api/SendingData"
+import EditReveiw from "./EditReveiw"
 
-function ReviewBtns({ menu, setMenu, subUrl, handleFetching }) {
+function ReviewBtns({ menu, setMenu, subUrl, handleFetching, buildingId, text }) {
 	const [confirmDelete, setConfirmDelete] = useState(false)
+	const [editModal, setEditModal] = useState(false)
 	const [loading, setLoading] = useState(false)
 	const state = useSelector((state) => state)
 
@@ -17,6 +19,9 @@ function ReviewBtns({ menu, setMenu, subUrl, handleFetching }) {
 	const toggleConfirmDelete = () => setConfirmDelete(!confirmDelete)
 	const handleCancel = () => {
 		toggleConfirmDelete(), toggleMenu()
+	}
+	const hideEditModal = () => {
+		setEditModal(false), toggleMenu()
 	}
 	const handleDelete = () => {
 		setLoading(true)
@@ -34,6 +39,7 @@ function ReviewBtns({ menu, setMenu, subUrl, handleFetching }) {
 						iconRight
 						icon={<Icon name="edit" size={25} color="#000" type="antdesign" />}
 						title="تعديل"
+						onPress={() => setEditModal(true)}
 						titleStyle={styles.editBtn}
 						containerStyle={{
 							marginVertical: 5
@@ -49,7 +55,7 @@ function ReviewBtns({ menu, setMenu, subUrl, handleFetching }) {
 				</View>
 			</Modal>
 			<Modal isVisible={confirmDelete}>
-				<View style={styles.deleteContainer}>
+				<View style={styles.deleteModalContainer}>
 					<Text h4>هل انت متأكد من الحذف؟</Text>
 					{!loading ? (
 						<View style={styles.confirmDeleteContainer}>
@@ -65,6 +71,17 @@ function ReviewBtns({ menu, setMenu, subUrl, handleFetching }) {
 					)}
 				</View>
 			</Modal>
+			<Modal isVisible={editModal}>
+				<View style={styles.editModalContainer}>
+					<EditReveiw
+						handleFetching={handleFetching}
+						subUrl={subUrl}
+						buildingId={buildingId}
+						hideEditModal={hideEditModal}
+						text={text}
+					/>
+				</View>
+			</Modal>
 		</>
 	)
 }
@@ -74,7 +91,17 @@ export default ReviewBtns
 const styles = StyleSheet.create({
 	modal: { justifyContent: "flex-end", margin: 0 },
 	container: { backgroundColor: "#fff", height: 150, alignItems: "flex-end" },
-	deleteContainer: { backgroundColor: "#fff", height: 150, alignItems: "center", paddingTop: 30 },
+	deleteModalContainer: {
+		backgroundColor: "#fff",
+		height: 150,
+		alignItems: "center",
+		paddingTop: 30
+	},
+	editModalContainer: {
+		backgroundColor: "#fff",
+		height: 200,
+		padding: 10
+	},
 	editBtn: { color: "black", fontSize: 30, paddingRight: 5, width: "90%", textAlign: "right" },
 	deleteBtn: { color: "red", fontSize: 30, paddingRight: 5, width: "90%", textAlign: "right" },
 	confirmDeleteContainer: { flexDirection: "row", marginTop: 10 },

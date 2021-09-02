@@ -85,3 +85,26 @@ export const handleDeleteReview = async (subUrl, refresh) => {
 		alert("حدث خطأ اثنأ تحميل المحتوى, يرجىء غلق التطبيق و فتحه مرة اخرى!")
 	}
 }
+
+export const handleEditReview = async (text, subUrl, refresh, username, buildingId) => {
+	const access = await UpdateAccessToken(refresh)
+	const userId = await fetchaUserId(username)
+	try {
+		const promise = await axios({
+			method: "put",
+			url: Const.mainUrl + subUrl,
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: "Bearer " + access
+			},
+			data: {
+				review: text,
+				user: userId,
+				building: buildingId
+			}
+		})
+		return promise
+	} catch (err) {
+		alert("حدث خطأ اثنأ تحميل المحتوى, يرجىء غلق التطبيق و فتحه مرة اخرى!")
+	}
+}
