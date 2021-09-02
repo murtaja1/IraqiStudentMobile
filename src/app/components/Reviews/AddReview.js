@@ -6,13 +6,17 @@ import { useSelector } from "react-redux"
 import { sendReview } from "../../api/SendingData"
 import { reviewSchema } from "../../utilities/YupSchemas"
 
-function AddReview({ subUrl, id, setPageNum }) {
+function AddReview({ subUrl, id, handleFetching }) {
 	const [loading, setLoading] = useState(false)
 	const state = useSelector((state) => state)
+
 	const handleSendReview = (text, resetForm) => {
 		setLoading(true)
-		// when setPageNum change it fetch new reviews
-		sendReview(text, subUrl, state.refresh, state.username, id, setLoading, resetForm, setPageNum)
+		sendReview(text, subUrl, state.refresh, state.username, id).then(() => {
+			handleFetching()
+			setLoading(false)
+			resetForm()
+		})
 	}
 	return (
 		<View>

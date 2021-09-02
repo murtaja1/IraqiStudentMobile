@@ -14,14 +14,17 @@ function Reviews({ title, url, empty, id }) {
 	const [loading, setLoading] = useState(false)
 	const state = useSelector((state) => state.username)
 
-	useEffect(() => {
-		const subUrl = url + `&page=1&page_size=${pageNum}`
+	const handleFetching = () => {
+		const subUrl = url + `?building__id=${id}&page=1&page_size=${pageNum}`
 		setLoading(true)
 		fetchData(setRewiews, subUrl)
+	}
+	useEffect(() => {
+		handleFetching()
 	}, [pageNum])
 
 	useEffect(() => {
-		// when you recive new reviews set it to false
+		// when you receive new reviews set it to false
 		setLoading(false)
 	}, [reviews])
 	return (
@@ -30,7 +33,7 @@ function Reviews({ title, url, empty, id }) {
 			{reviews !== undefined ? (
 				<>
 					{reviews.results.map((review, index) => (
-						<ReviewChild review={review} key={index} />
+						<ReviewChild handleFetching={handleFetching} review={review} url={url} key={index} />
 					))}
 
 					{reviews.next !== null && (
@@ -43,7 +46,7 @@ function Reviews({ title, url, empty, id }) {
 					{reviews.count === 0 && <Text style={styles.empty}>{empty}</Text>}
 					{state != "" ? (
 						<View style={{ paddingTop: 20 }}>
-							<AddReview subUrl={url} id={id} setPageNum={setPageNum} />
+							<AddReview subUrl={url} id={id} handleFetching={handleFetching} />
 						</View>
 					) : (
 						<Text style={styles.infoText}>

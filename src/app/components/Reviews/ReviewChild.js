@@ -4,8 +4,9 @@ import { Text } from "react-native-elements"
 import { Icon } from "react-native-elements/dist/icons/Icon"
 import ReviewBtns from "./ReviewBtns"
 
-const ReviewChild = ({ review }) => {
+const ReviewChild = ({ review, url, handleFetching }) => {
 	const [menu, setMenu] = useState(false)
+	const showBtns = () => setMenu(true)
 	return (
 		<View style={styles.container}>
 			<View style={styles.nameDotsContainer}>
@@ -14,7 +15,7 @@ const ReviewChild = ({ review }) => {
 					<Icon name="user" iconStyle={{ paddingLeft: 5 }} size={10} color="#000" type="entypo" />
 				</Text>
 				<Icon
-					onPress={() => setMenu(!menu)}
+					onPress={showBtns}
 					containerStyle={{ paddingLeft: 5 }}
 					name="dots-three-vertical"
 					size={15}
@@ -23,7 +24,12 @@ const ReviewChild = ({ review }) => {
 				/>
 			</View>
 			<Text style={styles.review}>{review.review}</Text>
-			<ReviewBtns menu={menu} setMenu={setMenu} />
+			<ReviewBtns
+				menu={menu}
+				setMenu={setMenu}
+				handleFetching={handleFetching}
+				subUrl={`${url}/${review.id}/`}
+			/>
 		</View>
 	)
 }
