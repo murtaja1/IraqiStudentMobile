@@ -9,14 +9,14 @@ import { useSelector } from "react-redux"
 import { handleDeleteReview } from "../../api/SendingData"
 
 function ReviewBtns({ menu, setMenu, subUrl, handleFetching }) {
-	const [confirm, setConfirm] = useState(false)
+	const [confirmDelete, setConfirmDelete] = useState(false)
 	const [loading, setLoading] = useState(false)
 	const state = useSelector((state) => state)
 
 	const toggleMenu = () => setMenu(!menu)
-	const toggleConfirm = () => setConfirm(!confirm)
+	const toggleConfirmDelete = () => setConfirmDelete(!confirmDelete)
 	const handleCancel = () => {
-		toggleConfirm(), toggleMenu()
+		toggleConfirmDelete(), toggleMenu()
 	}
 	const handleDelete = () => {
 		setLoading(true)
@@ -41,20 +41,24 @@ function ReviewBtns({ menu, setMenu, subUrl, handleFetching }) {
 					/>
 					<Button
 						title="حذف"
-						onPress={toggleConfirm}
+						onPress={toggleConfirmDelete}
 						titleStyle={styles.delete}
 						iconRight
 						icon={<Icon name="delete" size={25} color="red" type="antdesign" />}
 					/>
 				</View>
 			</Modal>
-			<Modal isVisible={confirm}>
+			<Modal isVisible={confirmDelete}>
 				<View style={styles.deleteContainer}>
 					<Text h4>هل انت متأكد من الحذف؟</Text>
 					{!loading ? (
-						<View style={styles.confirmContainer}>
+						<View style={styles.confirmDeleteContainer}>
 							<Button title="الغاء" onPress={handleCancel} containerStyle={styles.cancelBtn} />
-							<Button title="تاكيد" onPress={handleDelete} containerStyle={styles.confirmBtn} />
+							<Button
+								title="تاكيد"
+								onPress={handleDelete}
+								containerStyle={styles.confirmDeleteBtn}
+							/>
 						</View>
 					) : (
 						<ActivityIndicator color="blue" />
@@ -73,7 +77,7 @@ const styles = StyleSheet.create({
 	deleteContainer: { backgroundColor: "#fff", height: 150, alignItems: "center", paddingTop: 30 },
 	edit: { color: "black", fontSize: 30, paddingRight: 5 },
 	delete: { color: "red", fontSize: 30, paddingRight: 5 },
-	confirmContainer: { flexDirection: "row", marginTop: 10 },
+	confirmDeleteContainer: { flexDirection: "row", marginTop: 10 },
 	cancelBtn: { backgroundColor: "#4a7dcf", width: 50, marginRight: 5 },
-	confirmBtn: { backgroundColor: "#f05164", width: 50 }
+	confirmDeleteBtn: { backgroundColor: "#f05164", width: 50 }
 })
