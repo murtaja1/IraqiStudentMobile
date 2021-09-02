@@ -45,6 +45,7 @@ function AddReview({ subUrl, id, handleFetching }) {
 								disabled={values.text === ""}
 								title="ارسال"
 								onPress={handleSubmit}
+								containerStyle={{ width: 50 }}
 							/>
 						</View>
 					</View>

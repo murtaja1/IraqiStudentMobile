@@ -34,7 +34,7 @@ function ReviewBtns({ menu, setMenu, subUrl, handleFetching }) {
 						iconRight
 						icon={<Icon name="edit" size={25} color="#000" type="antdesign" />}
 						title="تعديل"
-						titleStyle={styles.edit}
+						titleStyle={styles.editBtn}
 						containerStyle={{
 							marginVertical: 5
 						}}
@@ -42,7 +42,7 @@ function ReviewBtns({ menu, setMenu, subUrl, handleFetching }) {
 					<Button
 						title="حذف"
 						onPress={toggleConfirmDelete}
-						titleStyle={styles.delete}
+						titleStyle={styles.deleteBtn}
 						iconRight
 						icon={<Icon name="delete" size={25} color="red" type="antdesign" />}
 					/>
@@ -75,8 +75,8 @@ const styles = StyleSheet.create({
 	modal: { justifyContent: "flex-end", margin: 0 },
 	container: { backgroundColor: "#fff", height: 150, alignItems: "flex-end" },
 	deleteContainer: { backgroundColor: "#fff", height: 150, alignItems: "center", paddingTop: 30 },
-	edit: { color: "black", fontSize: 30, paddingRight: 5 },
-	delete: { color: "red", fontSize: 30, paddingRight: 5 },
+	editBtn: { color: "black", fontSize: 30, paddingRight: 5, width: "90%", textAlign: "right" },
+	deleteBtn: { color: "red", fontSize: 30, paddingRight: 5, width: "90%", textAlign: "right" },
 	confirmDeleteContainer: { flexDirection: "row", marginTop: 10 },
 	cancelBtn: { backgroundColor: "#4a7dcf", width: 50, marginRight: 5 },
 	confirmDeleteBtn: { backgroundColor: "#f05164", width: 50 }
