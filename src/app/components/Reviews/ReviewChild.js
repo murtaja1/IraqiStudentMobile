@@ -2,11 +2,14 @@ import React, { useState } from "react"
 import { View, StyleSheet } from "react-native"
 import { Text } from "react-native-elements"
 import { Icon } from "react-native-elements/dist/icons/Icon"
+import { useSelector } from "react-redux"
 import ReviewBtns from "./ReviewBtns"
 
 const ReviewChild = ({ review, url, handleFetching, buildingId }) => {
 	const [menu, setMenu] = useState(false)
 	const showBtns = () => setMenu(true)
+	const username = useSelector((state) => state.username)
+
 	return (
 		<View style={styles.container}>
 			<View style={styles.nameDotsContainer}>
@@ -14,14 +17,16 @@ const ReviewChild = ({ review, url, handleFetching, buildingId }) => {
 					{review.username}
 					<Icon name="user" iconStyle={{ paddingLeft: 5 }} size={10} color="#000" type="entypo" />
 				</Text>
-				<Icon
-					onPress={showBtns}
-					containerStyle={{ paddingLeft: 5 }}
-					name="dots-three-vertical"
-					size={15}
-					color="#000"
-					type="entypo"
-				/>
+				{username === review.username && (
+					<Icon
+						onPress={showBtns}
+						containerStyle={{ paddingLeft: 5 }}
+						name="dots-three-vertical"
+						size={15}
+						color="#000"
+						type="entypo"
+					/>
+				)}
 			</View>
 			<Text style={styles.review}>{review.review}</Text>
 			<ReviewBtns
