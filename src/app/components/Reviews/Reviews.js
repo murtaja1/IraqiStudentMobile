@@ -13,6 +13,7 @@ function Reviews({ title, url, empty, id }) {
 	const [pageNum, setPageNum] = useState(6)
 	const [loading, setLoading] = useState(false)
 	const state = useSelector((state) => state.username)
+
 	useEffect(() => {
 		const subUrl = url + `&page=1&page_size=${pageNum}`
 		setLoading(true)
