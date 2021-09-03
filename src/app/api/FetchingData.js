@@ -31,16 +31,6 @@ export const fetchUniversity = async (id, setUniversity) => {
 	}
 }
 
-export const fetchRating = async (setValue, subUrl) => {
-	try {
-		const promise = await axios.get(Const.mainUrl + subUrl)
-		const res = await promise.data
-		setValue(res.results[0].ave_rating)
-	} catch (err) {
-		alert("حدث خطأ اثنأ تحميل المحتوى, يرجىء غلق التطبيق و فتحه مرة اخرى!")
-	}
-}
-
 export const fetchaUserId = async (username) => {
 	try {
 		const promise = await axios.get(Const.mainUrl + `users?username=${username}`)
