@@ -11,26 +11,6 @@ export const fetchData = async (setData, subUrl) => {
 	}
 }
 
-// not needed mix it with the above
-export const fetchUniversity = async (id, setUniversity) => {
-	try {
-		const promise = await axios.get(Const.mainUrl + `universities/${id}`)
-		const res = await promise.data
-		setUniversity({
-			data: res,
-			tableContent: [
-				res.establishment,
-				res.province,
-				res.president,
-				res.collages_num,
-				res.students_num
-			]
-		})
-	} catch (err) {
-		alert("حدث خطأ اثنأ تحميل المحتوى, يرجىء غلق التطبيق و فتحه مرة اخرى!")
-	}
-}
-
 export const fetchaUserId = async (username) => {
 	try {
 		const promise = await axios.get(Const.mainUrl + `users?username=${username}`)

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { View } from "react-native"
 import { ScrollView, StyleSheet, ActivityIndicator } from "react-native"
 import { Text } from "react-native-elements"
-import { fetchData, fetchUniversity } from "../api/FetchingData"
+import { fetchData } from "../api/FetchingData"
 import Reviews from "../components/Reviews/Reviews"
 import UniversityTable from "../components/UniversityTable"
 
@@ -10,12 +10,12 @@ function University({ route }) {
 	const [university, setUniversity] = useState()
 	const [collages, setCollages] = useState()
 	useEffect(() => {
-		fetchUniversity(route.params.id, setUniversity)
+		fetchData(setUniversity, `universities/${route.params.id}`)
 	}, [])
 
 	useEffect(() => {
 		if (university !== undefined) {
-			fetchData(setCollages, `collages?university__name=${university.data.name}`)
+			fetchData(setCollages, `collages?university__name=${university.name}`)
 		}
 	}, [university])
 	return (
@@ -23,7 +23,7 @@ function University({ route }) {
 			{university !== undefined ? (
 				<>
 					<UniversityTable university={university} id={route.params.id} />
-					<Text style={styles.title}>كليات {university.data.name}:</Text>
+					<Text style={styles.title}>كليات {university.name}:</Text>
 					{collages !== undefined && (
 						<>
 							{collages.results.map((collage, index) => (
@@ -37,9 +37,9 @@ function University({ route }) {
 						</>
 					)}
 					<Text style={styles.title}>معلومات أكثر: </Text>
-					<Text>{university.data.description}</Text>
+					<Text>{university.description}</Text>
 					<Reviews
-						title={`مراجعات ${university.data.name}`}
+						title={`مراجعات ${university.name}`}
 						url="university_reviews"
 						id={route.params.id}
 						empty={`لا مراجعات حتى الان! ${"\n"} (كون اول المراجعين)`}
