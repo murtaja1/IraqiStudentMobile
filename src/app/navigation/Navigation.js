@@ -11,8 +11,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
 import CostumDraweTabs from "./CostumDraweTabs"
 import LoginStack from "./LoginStack"
 import { Icon } from "react-native-elements"
-import UniverNews from "../screens/UniverNews"
 import UniversityStack from "./UniversityStack"
+import NewsStack from "./NewsStack"
 
 const Drawer = createDrawerNavigator()
 
@@ -105,7 +105,7 @@ function Navigation() {
 						component={UniversityStack}
 					/>
 					<Drawer.Screen
-						name="news"
+						name="newsStack"
 						options={{
 							drawerIcon: ({ size }) => (
 								<View style={styles.sideBarIcon}>
@@ -114,8 +114,7 @@ function Navigation() {
 							),
 							title: "الاخبار"
 						}}
-						initialParams={{ name: "news" }}
-						component={UniverNews}
+						component={NewsStack}
 					/>
 					{state.length === 0 && (
 						<>
