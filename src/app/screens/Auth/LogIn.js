@@ -2,9 +2,9 @@ import { Formik } from "formik"
 import React from "react"
 import { View, StyleSheet, Text, TextInput, TouchableHighlight } from "react-native"
 import { useSelector, useDispatch } from "react-redux"
-import { navigate } from "../navigation/RootNavigation"
-import { FetchToken } from "../redux/actions/FetchToken"
-import { loginSchema } from "../utilities/YupSchemas"
+import { navigate } from "../../navigation/RootNavigation"
+import { FetchToken } from "../../redux/actions/FetchToken"
+import { loginSchema } from "../../utilities/YupSchemas"
 
 function LogIn() {
 	const dispatch = useDispatch()

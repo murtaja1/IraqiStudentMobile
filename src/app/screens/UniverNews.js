@@ -10,9 +10,10 @@ import { navigate } from "../navigation/RootNavigation"
 function UniverNews({ route }) {
 	const [data, setData] = useState()
 	const [page, setPage] = useState(6)
-
+	const routeName = route.params.name
+	const handleNavigate = (item) => navigate(routeName + "Details", { id: item.id })
 	useEffect(() => {
-		const subUrl = `${route.params.name}?page=1&page_size=${page}`
+		const subUrl = `${routeName}?page=1&page_size=${page}`
 		fetchData(setData, subUrl)
 	}, [page])
 
@@ -22,18 +23,21 @@ function UniverNews({ route }) {
 			keyExtractor={(item) => item.card_text}
 			renderItem={({ item }) => (
 				<Card containerStyle={styles.container}>
-					{route.params.name === "universities" && (
-						<Card.Title h4 onPress={() => navigate("universityDetails", { id: item.id })}>
+					{routeName === "universities" && (
+						<Card.Title h4 onPress={() => handleNavigate(item)}>
 							{item.name}
 						</Card.Title>
 					)}
 					<Card.Image
+						onPress={() => handleNavigate(item)}
 						source={{
 							uri: item.card_image
 						}}
 						PlaceholderContent={<ActivityIndicator />}
 					/>
-					<Text style={{ paddingTop: 10 }}>{item.card_text}</Text>
+					<Text onPress={() => handleNavigate(item)} style={{ paddingTop: 10 }}>
+						{item.card_text}
+					</Text>
 					<Card.Divider style={styles.divider} />
 					<Text style={{ fontSize: 10 }}>{getArabDate(item.last_updated)}</Text>
 				</Card>

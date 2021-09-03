@@ -1,8 +1,8 @@
 import React from "react"
-import LogIn from "../screens/LogIn"
-import ResetPW from "../screens/ResetPW"
+import LogIn from "../screens/Auth/LogIn"
+import ResetPW from "../screens/Auth/ResetPW"
 import { createStackNavigator } from "@react-navigation/stack"
-import SetNewPW from "../screens/SetNewPW"
+import SetNewPW from "../screens/Auth/SetNewPW"
 
 const Stack = createStackNavigator()
 

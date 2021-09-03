@@ -15,7 +15,7 @@ function UniversityStack() {
 				component={UniverNews}
 			/>
 			<Stack.Screen
-				name="universityDetails"
+				name="universitiesDetails"
 				options={{ title: "الجامعة" }}
 				component={University}
 			/>

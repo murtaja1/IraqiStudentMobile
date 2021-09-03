@@ -4,23 +4,30 @@ import { DataTable } from "react-native-paper"
 import { Text, Image } from "react-native-elements"
 import AppRating from "./AppRating"
 
-const sideTableTitle = ["التأسيس", "المحافظة", "الرئيس", "عدد الكليات", "عدد الطلاب"]
+const tableTitle = ["التأسيس", "المحافظة", "الرئيس", "عدد الكليات", "عدد الطلاب"]
 
 function UniversityTable({ university, id }) {
+	const tableContent = [
+		university.establishment,
+		university.province,
+		university.president,
+		university.collages_num,
+		university.students_num
+	]
 	return (
 		<>
 			<DataTable style={styles.wrapperBorder}>
 				<Text style={styles.title} h4>
-					{university.data.name}
+					{university.name}
 				</Text>
 				<View style={{ alignItems: "center" }}>
-					<Image source={{ uri: university.data.logo }} style={{ width: 100, height: 100 }} />
+					<Image source={{ uri: university.logo }} style={{ width: 100, height: 100 }} />
 				</View>
 				<AppRating id={id} />
 				<DataTable.Row style={styles.tableBorder}>
 					<DataTable.Cell numeric="center">
 						<Text>
-							{university.data.country}
+							{university.country}
 							{"  "}
 							<Image
 								source={{
@@ -32,10 +39,10 @@ function UniversityTable({ university, id }) {
 					</DataTable.Cell>
 					<DataTable.Cell numeric>البلد</DataTable.Cell>
 				</DataTable.Row>
-				{sideTableTitle.map((title, index) => (
+				{tableTitle.map((title, index) => (
 					<DataTable.Row key={index} style={styles.tableBorder}>
 						<DataTable.Cell numeric="center">
-							<Text>{university.tableContent[index]}</Text>
+							<Text>{tableContent[index]}</Text>
 						</DataTable.Cell>
 						<DataTable.Cell numeric>{title}</DataTable.Cell>
 					</DataTable.Row>
@@ -43,7 +50,7 @@ function UniversityTable({ university, id }) {
 
 				<DataTable.Row style={styles.tableBorder}>
 					<DataTable.Cell numeric="center">
-						<TouchableOpacity onPress={() => Linking.openURL(university.data.website)}>
+						<TouchableOpacity onPress={() => Linking.openURL(university.website)}>
 							<Text style={{ color: "blue" }}>اضغط هنا</Text>
 						</TouchableOpacity>
 					</DataTable.Cell>

@@ -1,9 +1,9 @@
 import { Formik } from "formik"
 import React, { useState } from "react"
 import { Text, TextInput, View, StyleSheet, ScrollView, TouchableHighlight } from "react-native"
-import { registerSchema } from "../utilities/YupSchemas"
-import { handleRegister } from "../api/auth"
-import { navigate } from "../navigation/RootNavigation"
+import { registerSchema } from "../../utilities/YupSchemas"
+import { handleRegister } from "../../api/auth"
+import { navigate } from "../../navigation/RootNavigation"
 
 function Register() {
 	const [error, setError] = useState({ email: false, username: false })

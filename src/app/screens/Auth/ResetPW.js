@@ -1,48 +1,36 @@
 import { Formik } from "formik"
-import React from "react"
-import { useState } from "react"
+import React, { useState } from "react"
 import { View, StyleSheet, Text, TextInput, TouchableHighlight } from "react-native"
-import { handleSetNewPW } from "../api/auth"
+import { handleSendEmail } from "../../api/auth"
+import { resetPWSchema } from "../../utilities/YupSchemas"
 
-import { setNewPWSchema } from "../utilities/YupSchemas"
-
-function SetNewPW() {
-	const [requestFail, setRequestFail] = useState({ token: false, password: false })
-
+function ResetPW() {
+	const [requestFail, setRequestFail] = useState(false)
 	return (
 		<View style={styles.container}>
 			<Formik
-				validationSchema={setNewPWSchema}
+				validationSchema={resetPWSchema}
 				initialValues={{
-					token: "",
-					password: ""
+					email: ""
 				}}
 				onSubmit={(values) => {
-					handleSetNewPW(values, setRequestFail)
+					handleSendEmail(values.email, setRequestFail)
 				}}>
 				{({ handleChange, errors, values, handleSubmit, touched }) => (
 					<View>
-						<Text>يرجى ادخال الرمز الذي تم ارساله: </Text>
+						<Text>ادخل الايميل الخاص بك ليتم ارسال رمز التحقق: </Text>
 						<TextInput
 							style={styles.input}
-							placeholder="الرمز"
-							onChangeText={handleChange("token")}
-							value={values.token}
+							placeholder="الاسم"
+							onChangeText={handleChange("email")}
+							value={values.email}
 						/>
-						{requestFail.token && <Text style={styles.error}>هذا الرمز غير صالح للاستخدام!</Text>}
-						{touched.token && errors.token && <Text style={styles.error}>{errors.token}</Text>}
-						<Text>كلمة المرور جديده: </Text>
-						<TextInput
-							secureTextEntry={true}
-							style={styles.input}
-							placeholder="كلمة المرور"
-							onChangeText={handleChange("password")}
-							value={values.password}
-						/>
-						{requestFail.password && <Text style={styles.error}>يرجى ادخال كلمة مرور اقوى!</Text>}
-						{touched.password && errors.password && (
-							<Text style={styles.error}>{errors.password}</Text>
+						{requestFail && (
+							<Text style={styles.error}>
+								هذا الايميل غير صالح للاستخدام, يرجى ادخال اميل صالح!
+							</Text>
 						)}
+						{touched.email && errors.email && <Text style={styles.error}>{errors.email}</Text>}
 						<View style={styles.btnContainer}>
 							<TouchableHighlight
 								activeOpactity={0.9}
@@ -59,7 +47,7 @@ function SetNewPW() {
 	)
 }
 
-export default SetNewPW
+export default ResetPW
 const styles = StyleSheet.create({
 	input: {
 		borderColor: "gray",
