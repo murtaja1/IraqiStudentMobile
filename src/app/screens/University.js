@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { View } from "react-native"
-import { ScrollView, StyleSheet } from "react-native"
+import { ScrollView, StyleSheet, ActivityIndicator } from "react-native"
 import { Text } from "react-native-elements"
 import { fetchData, fetchUniversity } from "../api/FetchingData"
 import Reviews from "../components/Reviews/Reviews"
@@ -20,7 +20,7 @@ function University({ route }) {
 	}, [university])
 	return (
 		<ScrollView contentContainerStyle={{ margin: 10 }}>
-			{university !== undefined && (
+			{university !== undefined ? (
 				<>
 					<UniversityTable university={university} id={route.params.id} />
 					<Text style={styles.title}>كليات {university.data.name}:</Text>
@@ -46,6 +46,8 @@ function University({ route }) {
 					/>
 					<View style={{ marginBottom: 50 }}></View>
 				</>
+			) : (
+				<ActivityIndicator color="blue" />
 			)}
 		</ScrollView>
 	)
