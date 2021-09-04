@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react"
-import { View } from "react-native"
+import { TouchableOpacity, View } from "react-native"
 import { ScrollView, StyleSheet, ActivityIndicator } from "react-native"
 import { Text } from "react-native-elements"
 import { fetchData } from "../api/FetchingData"
 import Reviews from "../components/Reviews/Reviews"
 import UniversityTable from "../components/UniversityTable"
+import { navigate } from "../navigation/RootNavigation"
 
 function University({ route }) {
 	const [university, setUniversity] = useState()
@@ -21,15 +22,21 @@ function University({ route }) {
 	return (
 		<ScrollView contentContainerStyle={{ margin: 10 }}>
 			{university !== undefined ? (
-				<>
-					<UniversityTable university={university} id={route.params.id} />
+				<View style={{ marginBottom: 50 }}>
+					<UniversityTable university={university} />
 					<Text style={styles.title}>كليات {university.name}:</Text>
 					{collages !== undefined && (
 						<>
 							{collages.results.map((collage, index) => (
-								<Text key={index} style={styles.collagesText}>
-									{index + 1}- {collage.name}
-								</Text>
+								<TouchableOpacity
+									onPress={() =>
+										navigate("collage", { university: university.name, collage: collage.name })
+									}
+									key={index}>
+									<Text style={styles.collagesText}>
+										{index + 1}- {collage.name}
+									</Text>
+								</TouchableOpacity>
 							))}
 							{collages.count === 0 && (
 								<Text style={styles.noCollText}>لم يتم ادراج اي كلية حاليا!</Text>
@@ -44,8 +51,7 @@ function University({ route }) {
 						id={route.params.id}
 						empty={`لا مراجعات حتى الان! ${"\n"} (كون اول المراجعين)`}
 					/>
-					<View style={{ marginBottom: 50 }}></View>
-				</>
+				</View>
 			) : (
 				<ActivityIndicator color="blue" />
 			)}
