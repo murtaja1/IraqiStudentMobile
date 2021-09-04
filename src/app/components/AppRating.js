@@ -2,31 +2,32 @@ import React, { useEffect, useState } from "react"
 import { View, StyleSheet } from "react-native"
 import { Rating, Text } from "react-native-elements"
 import { useSelector } from "react-redux"
-import { fetchData } from "../api/FetchingData"
+import { fetchRating } from "../api/FetchingData"
 import { sendRating } from "../api/SendingData"
 import { navigate } from "../navigation/RootNavigation"
 
-function AppRating({ id }) {
+function AppRating({ building, id }) {
 	const [value, setValue] = useState()
 	const state = useSelector((state) => state)
-	const subUrl = `university_ratings?building__id=${id}`
+	const subUrl = `${building}?building__id=${id}`
+	console.log(id)
 	const handleSendRating = (rating) => {
 		sendRating(setValue, subUrl, state.username, rating, state.refresh, id)
 	}
 	useEffect(() => {
-		fetchData(setValue, subUrl)
+		fetchRating(setValue, subUrl)
 	}, [])
 	return (
 		<View>
 			{value !== undefined && (
 				<>
 					<Text h4 style={styles.value}>
-						{value.results[0].ave_rating}
+						{value}
 					</Text>
 					<Rating
 						readonly={state.username === "" ? true : false}
 						type="custom"
-						startingValue={value.results[0].ave_rating}
+						startingValue={value}
 						ratingCount={5}
 						imageSize={30}
 						tintColor="white"

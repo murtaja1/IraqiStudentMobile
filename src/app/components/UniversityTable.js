@@ -6,7 +6,7 @@ import AppRating from "./AppRating"
 
 const tableTitle = ["التأسيس", "المحافظة", "الرئيس", "عدد الكليات", "عدد الطلاب"]
 
-function UniversityTable({ university, id }) {
+function UniversityTable({ university }) {
 	const tableContent = [
 		university.establishment,
 		university.province,
@@ -23,7 +23,7 @@ function UniversityTable({ university, id }) {
 				<View style={{ alignItems: "center" }}>
 					<Image source={{ uri: university.logo }} style={{ width: 100, height: 100 }} />
 				</View>
-				<AppRating id={id} />
+				<AppRating id={university.id} building="university_ratings" />
 				<DataTable.Row style={styles.tableBorder}>
 					<DataTable.Cell numeric="center">
 						<Text>
