@@ -10,7 +10,6 @@ function AppRating({ building, id }) {
 	const [value, setValue] = useState()
 	const state = useSelector((state) => state)
 	const subUrl = `${building}?building__id=${id}`
-	console.log(id)
 	const handleSendRating = (rating) => {
 		sendRating(setValue, subUrl, state.username, rating, state.refresh, id)
 	}
