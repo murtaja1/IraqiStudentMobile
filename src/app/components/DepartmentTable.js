@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react"
-import { TouchableOpacity, ScrollView, StyleSheet, View } from "react-native"
+import React from "react"
+import { TouchableOpacity, StyleSheet, View } from "react-native"
 import { DataTable } from "react-native-paper"
 import { Text } from "react-native-elements"
-import { navigate } from "../navigation/RootNavigation"
-import { fetchData } from "../api/FetchingData"
+
 const tableTitle = [
 	"التأسيس",
 	"عدد الطلاب",
