@@ -29,7 +29,11 @@ function Collage({ route }) {
 				<View style={{ marginBottom: 40 }}>
 					<CollageTable collage={collage.results[0]} university={route.params.university} />
 					{departments !== undefined && (
-						<SumTable collage={collage.results[0]} departments={departments} />
+						<SumTable
+							collage={collage.results[0]}
+							university={route.params.university}
+							departments={departments}
+						/>
 					)}
 
 					<Text style={styles.title}>معلومات أكثر: </Text>
