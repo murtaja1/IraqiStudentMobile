@@ -6,7 +6,7 @@ import { navigate } from "../navigation/RootNavigation"
 
 const years = ["2020", "2019", "2018", "2017", "2016"]
 
-function SumTable({ collage, departments }) {
+function SumTable({ collage, departments, university }) {
 	return (
 		<>
 			<Text style={styles.title}>الحدود الدنيا لاقسام {collage.name}:</Text>
@@ -32,7 +32,16 @@ function SumTable({ collage, departments }) {
 									<DataTable.Cell key={year}>{department.sum[year]}</DataTable.Cell>
 								))}
 								<DataTable.Cell numeric style={{ flex: 2 }}>
-									{department.name}
+									<TouchableOpacity
+										onPress={() =>
+											navigate("department", {
+												university: university,
+												collage: collage.name,
+												departmentUrl: department.name
+											})
+										}>
+										<Text style={{ fontWeight: "bold", color: "blue" }}>{department.name}</Text>
+									</TouchableOpacity>
 								</DataTable.Cell>
 							</DataTable.Row>
 						))}
