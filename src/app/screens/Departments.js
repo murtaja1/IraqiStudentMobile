@@ -4,6 +4,7 @@ import { Text } from "react-native-elements"
 import { Divider } from "react-native-elements/dist/divider/Divider"
 import { fetchData } from "../api/FetchingData"
 import AppRating from "../components/AppRating"
+import DepartmentTable from "../components/DepartmentTable"
 import Reviews from "../components/Reviews/Reviews"
 
 function Departments({ route }) {
@@ -12,12 +13,9 @@ function Departments({ route }) {
 	const subUrl = `department?collage__university__university_name=${university}
   &collage_name=${collage}&name=${departmentUrl}`
 	useEffect(() => {
-		console.log(university, collage, departmentUrl)
 		fetchData(setDepartment, subUrl)
 	}, [])
-	// useEffect(() => {
-	// 	console.log(department)
-	// }, [department])
+
 	return (
 		<ScrollView contentContainerStyle={{ margin: 10 }}>
 			{department !== undefined ? (
@@ -29,6 +27,7 @@ function Departments({ route }) {
 					<Text style={styles.description}>{department.results[0].description}</Text>
 					<Text style={styles.title}>معلومات اضافية حول القسم:</Text>
 					<AppRating id={department.results[0].id} building="department_ratings" />
+					<DepartmentTable department={department.results[0]} university={university} />
 					<View style={{ marginTop: 20 }}>
 						<Reviews
 							title={`مراجعات ${department.results[0].name}`}
