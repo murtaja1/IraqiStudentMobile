@@ -2,33 +2,13 @@ import React from "react"
 import { TouchableOpacity, StyleSheet, View } from "react-native"
 import { DataTable } from "react-native-paper"
 import { Text } from "react-native-elements"
-
-const tableTitle = [
-	"التأسيس",
-	"عدد الطلاب",
-	"شهادة التخرج",
-	"نظام دراسة",
-	"عدد سنوات الدراسة",
-	"مكان العمل",
-	"العنوان الوضيفي",
-	"الفرع المقبول",
-	"لغة الدراسة"
-]
-const tableContent = [
-	"establishment",
-	"students_num",
-	"certi_of_gradu",
-	"study_system",
-	"years_of_study",
-	"place_of_work",
-	"job_title",
-	"accepted_branch",
-	"language_of_study"
-]
-const years = ["2020", "2019", "2018", "2017", "2016"]
-
-const booleanTitle = ["دراسة عليا", "دراسة مسائية", "دراسة اهلية"]
-const booleanContent = ["higher_educ", "evening_study", "private_study"]
+import {
+	departmentTableTitle,
+	departmentTableContent,
+	years,
+	departmentTBoolContent,
+	departmentTBoolTitle
+} from "../Const"
 
 function DepartmentTable({ department, university }) {
 	return (
@@ -37,9 +17,9 @@ function DepartmentTable({ department, university }) {
 				<DataTable.Cell numeric>{university}</DataTable.Cell>
 				<DataTable.Cell numeric>الجامعة</DataTable.Cell>
 			</DataTable.Row>
-			{tableTitle.map((item, index) => (
+			{departmentTableTitle.map((item, index) => (
 				<DataTable.Row key={index} style={styles.tableBorder}>
-					<DataTable.Cell numeric>{department[tableContent[index]]}</DataTable.Cell>
+					<DataTable.Cell numeric>{department[departmentTableContent[index]]}</DataTable.Cell>
 					<DataTable.Cell numeric>{item}</DataTable.Cell>
 				</DataTable.Row>
 			))}
@@ -53,10 +33,10 @@ function DepartmentTable({ department, university }) {
 				</DataTable.Cell>
 				<DataTable.Cell numeric>الحدود الدنيا</DataTable.Cell>
 			</DataTable.Row>
-			{booleanTitle.map((title, index) => (
+			{departmentTBoolTitle.map((title, index) => (
 				<DataTable.Row key={index} style={styles.tableBorder}>
 					<DataTable.Cell numeric>
-						{booleanContent[index] === true ? "لا يوجد" : "موجود"}
+						{departmentTBoolContent[index] === true ? "لا يوجد" : "موجود"}
 					</DataTable.Cell>
 					<DataTable.Cell numeric>{title}</DataTable.Cell>
 				</DataTable.Row>

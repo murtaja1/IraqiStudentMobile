@@ -3,8 +3,7 @@ import { TouchableOpacity, ScrollView, StyleSheet } from "react-native"
 import { DataTable } from "react-native-paper"
 import { Text } from "react-native-elements"
 import { navigate } from "../navigation/RootNavigation"
-
-const years = ["2020", "2019", "2018", "2017", "2016"]
+import { years } from "../Const"
 
 function SumTable({ collage, departments, university }) {
 	return (

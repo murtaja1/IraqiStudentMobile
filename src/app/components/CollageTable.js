@@ -4,8 +4,7 @@ import { DataTable } from "react-native-paper"
 import { Text } from "react-native-elements"
 import AppRating from "./AppRating"
 import { navigate } from "../navigation/RootNavigation"
-
-const tableTitle = ["التأسيس", "عدد الطلاب", "عدد الاقسام"]
+import { collageTableTitle } from "../Const"
 
 function CollageTable({ collage, university }) {
 	const tableContent = [collage.students_num, collage.departments_num, collage.establishment]
@@ -18,7 +17,7 @@ function CollageTable({ collage, university }) {
 				</Text>
 				<AppRating id={collage.id} building="collage_ratings" />
 
-				{tableTitle.map((title, index) => (
+				{collageTableTitle.map((title, index) => (
 					<DataTable.Row key={index} style={styles.tableBorder}>
 						<DataTable.Cell numeric="center">
 							<Text>{tableContent[index]}</Text>

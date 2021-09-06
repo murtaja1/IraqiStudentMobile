@@ -3,8 +3,7 @@ import { View, TouchableOpacity, Linking, StyleSheet } from "react-native"
 import { DataTable } from "react-native-paper"
 import { Text, Image } from "react-native-elements"
 import AppRating from "./AppRating"
-
-const tableTitle = ["التأسيس", "المحافظة", "الرئيس", "عدد الكليات", "عدد الطلاب"]
+import { univeristyTableTitle } from "../Const"
 
 function UniversityTable({ university }) {
 	const tableContent = [
@@ -39,7 +38,7 @@ function UniversityTable({ university }) {
 					</DataTable.Cell>
 					<DataTable.Cell numeric>البلد</DataTable.Cell>
 				</DataTable.Row>
-				{tableTitle.map((title, index) => (
+				{univeristyTableTitle.map((title, index) => (
 					<DataTable.Row key={index} style={styles.tableBorder}>
 						<DataTable.Cell numeric="center">
 							<Text>{tableContent[index]}</Text>
