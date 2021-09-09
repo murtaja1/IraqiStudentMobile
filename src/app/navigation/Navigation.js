@@ -1,6 +1,6 @@
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native"
 import { createDrawerNavigator } from "@react-navigation/drawer"
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import Home from "../screens/Home"
 import { Text, View, StyleSheet } from "react-native"
 import { navigationRef } from "./RootNavigation"
@@ -13,6 +13,7 @@ import LoginStack from "./LoginStack"
 import { Icon } from "react-native-elements"
 import UniversityStack from "./UniversityStack"
 import NewsStack from "./NewsStack"
+import Search from "../components/Search"
 
 const Drawer = createDrawerNavigator()
 
@@ -25,6 +26,7 @@ const MyTheme = {
 }
 
 function Navigation() {
+	const [searchModal, setSearchModal] = useState(false)
 	const state = useSelector((state) => state.username)
 	const dispatch = useDispatch()
 	useEffect(() => {
@@ -51,9 +53,18 @@ function Navigation() {
 
 						header: (props) => (
 							<View style={styles.navbar}>
-								<View>
-									<Text>{"         "}</Text>
-								</View>
+								<Icon
+									iconStyle={{ paddingLeft: 10 }}
+									onPress={() => setSearchModal(true)}
+									name="search"
+									size={30}
+									color="#fff"
+								/>
+								<Search
+									setSearchModal={setSearchModal}
+									searchModal={searchModal}
+									navigation={props.navigation}
+								/>
 								<Text style={styles.headerName}>{props.options.title}</Text>
 								<Icon
 									iconStyle={styles.headerIcon}
@@ -79,7 +90,6 @@ function Navigation() {
 							component={Home}
 						/>
 					)}
-
 					<Drawer.Screen
 						name="Home"
 						options={{
