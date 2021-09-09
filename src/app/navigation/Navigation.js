@@ -53,11 +53,8 @@ function Navigation() {
 
 						header: (props) => (
 							<View style={styles.navbar}>
-								<View>
-									<Text>{"         "}</Text>
-								</View>
 								<Icon
-									iconStyle={styles.headerIcon}
+									iconStyle={{ paddingLeft: 10 }}
 									onPress={() => setSearchModal(true)}
 									name="search"
 									size={30}

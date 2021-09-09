@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { View, StyleSheet, TextInput, Text, ActivityIndicator } from "react-native"
+import { View, StyleSheet, TextInput, Text, ActivityIndicator, ScrollView } from "react-native"
 import { TouchableOpacity } from "react-native-gesture-handler"
 import Modal from "react-native-modal"
 import { fetchData } from "../api/FetchingData"
@@ -65,17 +65,23 @@ function Search({ setSearchModal, searchModal, navigation }) {
 					onChangeText={(text) => handleSearch(text)}
 				/>
 				{data !== undefined && (
-					<View>
-						{data.results.map((item, index) => (
-							<TouchableOpacity key={index}>
-								<Text onPress={() => handleNavigation(item)} style={styles.results}>
-									{index + 1}- {item.name}
-								</Text>
-							</TouchableOpacity>
-						))}
+					<View style={styles.scrollView}>
+						<ScrollView>
+							{data.results.map((item, index) => (
+								<TouchableOpacity key={index}>
+									<Text onPress={() => handleNavigation(item)} style={styles.results}>
+										{index + 1}- {item.name}
+									</Text>
+								</TouchableOpacity>
+							))}
+						</ScrollView>
 					</View>
 				)}
-				{loading && <ActivityIndicator color="blue" />}
+				{loading && (
+					<View style={styles.spinner}>
+						<ActivityIndicator color="blue" />
+					</View>
+				)}
 			</View>
 		</Modal>
 	)
@@ -104,5 +110,7 @@ const styles = StyleSheet.create({
 		fontSize: 17,
 		color: "blue",
 		paddingBottom: 5
-	}
+	},
+	spinner: { alignItems: "center", width: "100%" },
+	scrollView: { paddingBottom: 20, width: "100%" }
 })
