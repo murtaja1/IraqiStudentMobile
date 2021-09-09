@@ -15,7 +15,9 @@ export const fetchRating = async (setValue, subUrl) => {
 	try {
 		const promise = await axios.get(Const.mainUrl + subUrl)
 		const res = await promise.data
-		setValue(res.results[0].ave_rating)
+		console.log(res)
+		if (res.count !== 0) setValue(res.results[0].ave_rating)
+		else setValue(0)
 	} catch (err) {
 		alert("حدث خطأ اثنأ تحميل المحتوى, يرجىء غلق التطبيق و فتحه مرة اخرى!")
 	}
