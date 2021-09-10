@@ -8,7 +8,9 @@ function Search({ setSearchModal, searchModal, navigation }) {
 	const [input, setInput] = useState("")
 	const [data, setData] = useState()
 	const [loading, setLoading] = useState(false)
+	const [noRes, setNoRes] = useState(false)
 	const handleSearch = (text) => {
+		setNoRes(false)
 		setLoading(true)
 		setInput(text)
 		if (text !== "") fetchData(setData, `search?q=${text}&page_size=100`)
@@ -20,10 +22,10 @@ function Search({ setSearchModal, searchModal, navigation }) {
 		setSearchModal(!searchModal)
 		setInput("")
 		setData()
+		setNoRes(false)
 	}
 
 	const handleNavigation = (item) => {
-		console.log(item)
 		const sub = item.name
 		if (sub.substr(0, 5) === "جامعة" || sub.substr(0, 7) === "الجامعة") {
 			navigation.navigate("universityStack", {
@@ -52,7 +54,11 @@ function Search({ setSearchModal, searchModal, navigation }) {
 	}
 
 	useEffect(() => {
+		setNoRes(false)
 		setLoading(false)
+		if (data !== undefined) {
+			data.count === 0 && setNoRes(true)
+		}
 	}, [data])
 	return (
 		<Modal onBackdropPress={toggleModal} isVisible={searchModal}>
@@ -76,6 +82,12 @@ function Search({ setSearchModal, searchModal, navigation }) {
 							))}
 						</ScrollView>
 					</View>
+				)}
+				{noRes && (
+					<Text style={styles.noRes}>
+						لا توجد نتائج مطابقة!
+						{"\n"} (تأكد من الإملاء)
+					</Text>
 				)}
 				{loading && (
 					<View style={styles.spinner}>
@@ -112,5 +124,6 @@ const styles = StyleSheet.create({
 		paddingBottom: 5
 	},
 	spinner: { alignItems: "center", width: "100%" },
-	scrollView: { paddingBottom: 20, width: "100%" }
+	scrollView: { paddingBottom: 20, width: "100%" },
+	noRes: { textAlign: "center", fontSize: 17, color: "red", width: "100%" }
 })
