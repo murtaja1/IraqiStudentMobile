@@ -12,7 +12,7 @@ function University({ route }) {
 	const [collages, setCollages] = useState()
 	useEffect(() => {
 		fetchData(setUniversity, `universities/${route.params.id}`)
-	}, [])
+	}, [route])
 
 	useEffect(() => {
 		if (university !== undefined) {
