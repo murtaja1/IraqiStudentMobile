@@ -76,20 +76,6 @@ function Navigation() {
 							</View>
 						)
 					}}>
-					{state.length != 0 && (
-						<Drawer.Screen
-							name="home"
-							options={{
-								drawerLabel: () => (
-									<View>
-										<Text style={styles.profile}>الطالب</Text>
-									</View>
-								),
-								title: "الطالب"
-							}}
-							component={Home}
-						/>
-					)}
 					<Drawer.Screen
 						name="Home"
 						options={{
