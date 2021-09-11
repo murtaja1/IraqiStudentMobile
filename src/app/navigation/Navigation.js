@@ -1,19 +1,18 @@
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native"
 import { createDrawerNavigator } from "@react-navigation/drawer"
-import React, { useEffect, useState } from "react"
+import React, { useEffect } from "react"
 import Home from "../screens/Home"
-import { Text, View, StyleSheet } from "react-native"
+import { View, StyleSheet } from "react-native"
 import { navigationRef } from "./RootNavigation"
-import Register from "../screens/Auth/Register"
 import { useSelector, useDispatch } from "react-redux"
 import { RetrieveTokens } from "../redux/actions/FetchToken"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import CostumDraweTabs from "./CostumDraweTabs"
-import LoginStack from "./LoginStack"
 import { Icon } from "react-native-elements"
 import UniversityStack from "./UniversityStack"
 import NewsStack from "./NewsStack"
-import Search from "../components/Search"
+import NavigationHeader from "./NavigationHeader"
+import AuthTabs from "./AuthTabs"
 
 const Drawer = createDrawerNavigator()
 
@@ -26,7 +25,6 @@ const MyTheme = {
 }
 
 function Navigation() {
-	const [searchModal, setSearchModal] = useState(false)
 	const state = useSelector((state) => state.username)
 	const dispatch = useDispatch()
 	useEffect(() => {
@@ -51,30 +49,7 @@ function Navigation() {
 					screenOptions={{
 						drawerPosition: "right",
 
-						header: (props) => (
-							<View style={styles.navbar}>
-								<Icon
-									iconStyle={{ paddingLeft: 10 }}
-									onPress={() => setSearchModal(true)}
-									name="search"
-									size={30}
-									color="#fff"
-								/>
-								<Search
-									setSearchModal={setSearchModal}
-									searchModal={searchModal}
-									navigation={props.navigation}
-								/>
-								<Text style={styles.headerName}>{props.options.title}</Text>
-								<Icon
-									iconStyle={styles.headerIcon}
-									onPress={() => props.navigation.openDrawer()}
-									name="menu"
-									size={30}
-									color="#fff"
-								/>
-							</View>
-						)
+						header: (props) => <NavigationHeader props={props} />
 					}}>
 					<Drawer.Screen
 						name="Home"
@@ -112,34 +87,7 @@ function Navigation() {
 						}}
 						component={NewsStack}
 					/>
-					{state.length === 0 && (
-						<>
-							<Drawer.Screen
-								name="login"
-								options={{
-									drawerIcon: ({ size }) => (
-										<View style={styles.sideBarIcon}>
-											<Icon name="login" size={size} color="#000" type="entypo" />
-										</View>
-									),
-									title: "تسجيل الدخول"
-								}}
-								component={LoginStack}
-							/>
-							<Drawer.Screen
-								name="register"
-								options={{
-									drawerIcon: ({ size }) => (
-										<View style={styles.sideBarIcon}>
-											<Icon name="clipboard" size={size} color="#000" type="entypo" />
-										</View>
-									),
-									title: "انشاء حساب"
-								}}
-								component={Register}
-							/>
-						</>
-					)}
+					{state.length === 0 && AuthTabs}
 				</Drawer.Navigator>
 			</NavigationContainer>
 		</>
@@ -149,18 +97,5 @@ function Navigation() {
 export default Navigation
 
 const styles = StyleSheet.create({
-	navbar: {
-		backgroundColor: "#297F87",
-		height: 36,
-		flexDirection: "row",
-		alignItems: "center",
-		justifyContent: "space-between"
-	},
-	headerName: {
-		color: "#fff",
-		fontSize: 20
-	},
-	headerIcon: { paddingRight: 10 },
-	profile: { fontSize: 20, position: "relative", right: "25%" },
 	sideBarIcon: { position: "absolute", right: 0 }
 })

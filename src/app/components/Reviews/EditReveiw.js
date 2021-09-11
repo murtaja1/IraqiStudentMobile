@@ -5,6 +5,7 @@ import { Text, Button } from "react-native-elements"
 import { useSelector } from "react-redux"
 import { handleEditReview } from "../../api/SendingData"
 import { reviewSchema } from "../../utilities/YupSchemas"
+import global from "../../styles/global"
 
 function EditReveiw({ subUrl, buildingId, handleFetching, hideEditModal, text }) {
 	const [loading, setLoading] = useState(false)
@@ -66,15 +67,7 @@ const styles = StyleSheet.create({
 		fontWeight: "bold",
 		paddingVertical: 10
 	},
-	input: {
-		borderColor: "gray",
-		borderWidth: 1,
-		padding: 10,
-		marginTop: 10,
-		marginBottom: 10,
-		borderRadius: 6,
-		textAlign: "right"
-	},
+	input: global.input,
 	container: {
 		marginTop: 30,
 		margin: 10

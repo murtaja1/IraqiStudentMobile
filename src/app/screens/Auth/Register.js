@@ -4,6 +4,7 @@ import { Text, TextInput, View, StyleSheet, ScrollView, TouchableHighlight } fro
 import { registerSchema } from "../../utilities/YupSchemas"
 import { handleRegister } from "../../api/auth"
 import { navigate } from "../../navigation/RootNavigation"
+import global from "../../styles/global"
 
 function Register() {
 	const [error, setError] = useState({ email: false, username: false })
@@ -90,15 +91,7 @@ function Register() {
 export default Register
 
 const styles = StyleSheet.create({
-	input: {
-		borderColor: "gray",
-		borderWidth: 1,
-		padding: 10,
-		marginTop: 10,
-		marginBottom: 10,
-		borderRadius: 6,
-		textAlign: "right"
-	},
+	input: global.input,
 	container: {
 		marginTop: 30,
 		margin: 10

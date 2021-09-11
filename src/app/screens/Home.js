@@ -5,7 +5,7 @@ import { Divider } from "react-native-elements/dist/divider/Divider"
 
 function Home() {
 	return (
-		<View>
+		<View style={{ marginHorizontal: 5 }}>
 			<Text h4 style={styles.header}>
 				مرحبا بك في برنامج الطالب العراقي
 			</Text>
