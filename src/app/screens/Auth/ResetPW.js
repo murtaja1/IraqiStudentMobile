@@ -3,6 +3,7 @@ import React, { useState } from "react"
 import { View, StyleSheet, Text, TextInput, TouchableHighlight } from "react-native"
 import { handleSendEmail } from "../../api/auth"
 import { resetPWSchema } from "../../utilities/YupSchemas"
+import global from "../../styles/global"
 
 function ResetPW() {
 	const [requestFail, setRequestFail] = useState(false)
@@ -49,15 +50,7 @@ function ResetPW() {
 
 export default ResetPW
 const styles = StyleSheet.create({
-	input: {
-		borderColor: "gray",
-		borderWidth: 1,
-		padding: 10,
-		marginTop: 10,
-		marginBottom: 10,
-		borderRadius: 6,
-		textAlign: "right"
-	},
+	input: global.input,
 	container: {
 		marginTop: 30,
 		margin: 10

@@ -3,8 +3,8 @@ import React from "react"
 import { useState } from "react"
 import { View, StyleSheet, Text, TextInput, TouchableHighlight } from "react-native"
 import { handleSetNewPW } from "../../api/auth"
-
 import { setNewPWSchema } from "../../utilities/YupSchemas"
+import global from "../../styles/global"
 
 function SetNewPW() {
 	const [requestFail, setRequestFail] = useState({ token: false, password: false })
@@ -61,15 +61,7 @@ function SetNewPW() {
 
 export default SetNewPW
 const styles = StyleSheet.create({
-	input: {
-		borderColor: "gray",
-		borderWidth: 1,
-		padding: 10,
-		marginTop: 10,
-		marginBottom: 10,
-		borderRadius: 6,
-		textAlign: "right"
-	},
+	input: global.input,
 	container: {
 		marginTop: 30,
 		margin: 10

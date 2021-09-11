@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { navigate } from "../../navigation/RootNavigation"
 import { FetchToken } from "../../redux/actions/FetchToken"
 import { loginSchema } from "../../utilities/YupSchemas"
+import global from "../../styles/global"
 
 function LogIn() {
 	const dispatch = useDispatch()
@@ -74,15 +75,7 @@ function LogIn() {
 export default LogIn
 
 const styles = StyleSheet.create({
-	input: {
-		borderColor: "gray",
-		borderWidth: 1,
-		padding: 10,
-		marginTop: 10,
-		marginBottom: 10,
-		borderRadius: 6,
-		textAlign: "right"
-	},
+	input: global.input,
 	container: {
 		marginTop: 30,
 		margin: 10
